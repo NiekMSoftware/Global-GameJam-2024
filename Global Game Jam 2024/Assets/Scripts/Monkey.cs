@@ -51,4 +51,22 @@ public class Monkey : MonoBehaviour
     {
         return Vector2.zero;
     }
+
+    public void TakeDamage(float damage)
+    {
+        Health -= damage;
+        if(Health < 0)
+        {
+            Die();
+        }
+        if(Health > maxHealth)
+        {
+            Health = maxHealth;
+        }
+    }
+
+    protected virtual void Die()
+    {
+
+    }
 }

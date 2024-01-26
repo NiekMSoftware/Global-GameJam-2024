@@ -437,16 +437,8 @@ PrefabInstance:
       value: Player_Proto
       objectReference: {fileID: 0}
     - target: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
-      propertyPath: speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8769535165075297458, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8769535165075297458, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
+      propertyPath: maxHealth
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

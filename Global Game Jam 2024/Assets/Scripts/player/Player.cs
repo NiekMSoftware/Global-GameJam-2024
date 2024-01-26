@@ -6,10 +6,38 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Monkey
 {
+    [Header("Dodging Properties")]
+    [SerializeField] private float dodgeForce;
+    [SerializeField] private float timeUntilNext;
+    
+    private bool pressed;
+    private bool isOnCoolDown = false;
+    
     private void Start()
     {
+        InitPlayer();
+    }
+
+    private void InitPlayer()
+    {
+        health = maxHealth;
+        
         monkeyRb = GetComponent<Rigidbody2D>();
         monkeyRb.drag = 5f;
+    }
+
+    private void Update()
+    {
+        pressed = Input.GetKeyDown(KeyCode.Space);
+        
+        // check if the key has been pressed
+        if (pressed && !isOnCoolDown)
+        {
+            Dodge();
+
+            isOnCoolDown = true;
+            StartCoroutine(DodgeCooldown());
+        }
     }
 
     private void FixedUpdate()
@@ -31,7 +59,11 @@ public class Player : Monkey
 
     protected override void Dodge()
     {
-        base.Dodge();
+        // Add force to dodge the player
+        Vector2 direction = Move();
+        
+        // thrust player to position
+        monkeyRb.AddForce(direction * dodgeForce);
     }
 
     protected override Vector2 Move()
@@ -39,6 +71,39 @@ public class Player : Monkey
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        return new Vector2(x, y);
+        Vector2 direction = new Vector2(x, y);
+
+        if (direction != Vector2.zero)
+        {
+            float angle = GetRotationAngle(direction);
+            monkeyRb.rotation = angle;
+        }
+
+        return direction;
+    }
+
+    private float GetRotationAngle(Vector2 direction)
+    {
+        float angle = 0;
+
+        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+        {
+            // if we primarily move horizontally
+            angle = (direction.x > 0) ? -90 : 90;
+        }
+        else
+        {
+            // if we primarily move vertically
+            angle = (direction.y > 0) ? 0 : 180;
+        }
+        
+        return angle;
+    }
+
+    private IEnumerator DodgeCooldown()
+    {
+        yield return new WaitForSeconds(timeUntilNext);
+        
+        isOnCoolDown = false;
     }
 }
