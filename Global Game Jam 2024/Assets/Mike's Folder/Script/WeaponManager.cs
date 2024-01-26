@@ -38,6 +38,10 @@ public class WeaponManager : MonoBehaviour
 
         currentWeapon = weapons[currentWeaponNum];
 
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        transform.rotation = Quaternion.LookRotation(pos);
+
         currentWeapon.currentCD -= Time.deltaTime;
 
         if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0)

@@ -15,7 +15,7 @@ public class GenericAttack : Weapon
         if (currentAttack.TryGetComponent(out Rigidbody2D rb))
         {
             currentAttack.GetComponent<Projectile>().dmg = dmg;
-            rb.AddForce(transform.right * bulletSpeed, ForceMode2D.Impulse);
+            rb.AddForce(transform.forward * bulletSpeed, ForceMode2D.Impulse);
         }
     }
 }
