@@ -19,8 +19,8 @@ public class AIMovement : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
-    private void Update()
-    {
-        agent.SetDestination(target.position);
-    }
+    //private void Update()
+    //{
+    //    agent.SetDestination(target.position);
+    //}
 }
