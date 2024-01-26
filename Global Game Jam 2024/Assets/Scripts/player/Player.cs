@@ -6,10 +6,25 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Monkey
 {
+    [SerializeField] private float dodgeForce;
+    
+    private bool pressed;
+    
     private void Start()
     {
         monkeyRb = GetComponent<Rigidbody2D>();
         monkeyRb.drag = 5f;
+    }
+
+    private void Update()
+    {
+        pressed = Input.GetKeyDown(KeyCode.Space);
+
+        // check if the key has been pressed
+        if (pressed)
+        {
+            Dodge();
+        }
     }
 
     private void FixedUpdate()
@@ -31,7 +46,7 @@ public class Player : Monkey
 
     protected override void Dodge()
     {
-        base.Dodge();
+        
     }
 
     protected override Vector2 Move()
@@ -39,6 +54,32 @@ public class Player : Monkey
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        return new Vector2(x, y);
+        Vector2 direction = new Vector2(x, y);
+
+        if (direction != Vector2.zero)
+        {
+            float angle = GetRotationAngle(direction);
+            monkeyRb.rotation = angle;
+        }
+
+        return direction;
+    }
+
+    private float GetRotationAngle(Vector2 direction)
+    {
+        float angle = 0;
+
+        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+        {
+            // if we primarily move horizontally
+            angle = (direction.x > 0) ? 180 : 0;
+        }
+        else
+        {
+            // if we primarily move vertically
+            angle = (direction.y > 0) ? 270 : 90;
+        }
+        
+        return angle;
     }
 }
