@@ -9,6 +9,9 @@ public class Monkey : MonoBehaviour
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float speed;
 
+    [Space]
+    [SerializeField] protected Rigidbody2D monkeyRb;
+
     public float Health {
         get {
             return health;
