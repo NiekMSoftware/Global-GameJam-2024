@@ -100,9 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 3
-  speed: 20
+  speed: 7.5
   monkeyRb: {fileID: 0}
-  dodgeForce: 1000
+  dodgeForce: 20
   timeUntilNext: 0.85
 --- !u!50 &8769535165075297458
 Rigidbody2D:
