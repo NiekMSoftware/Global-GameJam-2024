@@ -60,32 +60,32 @@ public class Player : Monkey
     private void Update()
     {
         pressed = playerController.gameplay.dodge.triggered;
-        
+    }
+
+    private void FixedUpdate()
+    {
         // Check if the key has been pressed, the player is not already in cooldown,
-        // and the player has a movement direction
+        // and the player has a movement direction (only in FixedUpdate)
         if (pressed && !isOnCoolDown && direction.magnitude > 0)
         {
             Dodge();
             StartCoroutine(DodgeCooldown());
         }
-    }
 
-    private void FixedUpdate()
-    {
-        // Check if player is not dodging, before applying the usual move force.
+        // Only apply the move force when not in cooldown.
         if (!isOnCoolDown)
         {
-            // Update the velocity
-            monkeyRb.velocity = new Vector2(direction.x * speed, direction.y * speed);
-
             // Calculate the rotation angle based on the current move direction
             float rotationAngle = GetRotationAngle(direction);
 
             // Apply the rotation to your player character
             monkeyRb.rotation = rotationAngle;
-
-            monkeyRb.AddForce(direction);
         
+            // If there is input direction, apply force
+            if (direction != Vector2.zero)
+            {
+                monkeyRb.AddForce(direction * speed);
+            }
         }
     }
 
