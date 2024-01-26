@@ -6,12 +6,22 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Monkey
 {
+    [Header("Dodging Properties")]
     [SerializeField] private float dodgeForce;
+    [SerializeField] private float timeUntilNext;
     
     private bool pressed;
+    private bool isOnCoolDown = false;
     
     private void Start()
     {
+        InitPlayer();
+    }
+
+    private void InitPlayer()
+    {
+        health = maxHealth;
+        
         monkeyRb = GetComponent<Rigidbody2D>();
         monkeyRb.drag = 5f;
     }
@@ -19,11 +29,14 @@ public class Player : Monkey
     private void Update()
     {
         pressed = Input.GetKeyDown(KeyCode.Space);
-
+        
         // check if the key has been pressed
-        if (pressed)
+        if (pressed && !isOnCoolDown)
         {
             Dodge();
+
+            isOnCoolDown = true;
+            StartCoroutine(DodgeCooldown());
         }
     }
 
@@ -46,7 +59,11 @@ public class Player : Monkey
 
     protected override void Dodge()
     {
+        // Add force to dodge the player
+        Vector2 direction = Move();
         
+        // thrust player to position
+        monkeyRb.AddForce(direction * dodgeForce);
     }
 
     protected override Vector2 Move()
@@ -72,14 +89,21 @@ public class Player : Monkey
         if (Math.Abs(direction.x) > Math.Abs(direction.y))
         {
             // if we primarily move horizontally
-            angle = (direction.x > 0) ? 180 : 0;
+            angle = (direction.x > 0) ? -90 : 90;
         }
         else
         {
             // if we primarily move vertically
-            angle = (direction.y > 0) ? 270 : 90;
+            angle = (direction.y > 0) ? 0 : 180;
         }
         
         return angle;
+    }
+
+    private IEnumerator DodgeCooldown()
+    {
+        yield return new WaitForSeconds(timeUntilNext);
+        
+        isOnCoolDown = false;
     }
 }
