@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Item
+  - Hedge
   layers:
   - Default
   - TransparentFX

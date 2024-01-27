@@ -15,7 +15,8 @@ public class Interaction : MonoBehaviour
     public enum Interactables
     {
         npc,
-        item
+        item,
+        hedge
     }
 
     private void Awake()
@@ -36,6 +37,13 @@ public class Interaction : MonoBehaviour
         {
             interactionText.text = "E to pickup item";
             interactables = Interactables.item;
+
+            SetupInteractable(other);
+        }
+        else if (other.CompareTag("Hedge"))
+        {
+            interactionText.text = "E to cut hedge";
+            interactables = Interactables.hedge;
 
             SetupInteractable(other);
         }
@@ -64,6 +72,10 @@ public class Interaction : MonoBehaviour
                 inventory.AddItem(interactedObject.GetComponent<QuestItem>());
                 Destroy(interactedObject);
             }
+            else if (interactables == Interactables.hedge)
+            {
+                interactedObject.GetComponent<Hedge>().Use();
+            }
             interactable = false;
         }
     }
@@ -80,6 +92,10 @@ public class Interaction : MonoBehaviour
             ResetInteractables();
         }
         else if (other.CompareTag("Item"))
+        {
+            ResetInteractables();
+        }
+        else if (other.CompareTag("Hedge"))
         {
             ResetInteractables();
         }
