@@ -32,9 +32,12 @@ public class Projectile : MonoBehaviour
             {
                 monkey.TakeDamage(dmg);
             }
-            else if (collision.transform.parent.TryGetComponent(out Monkey monkeyParent))
+            else if (collision.transform.parent != null)
             {
-                monkeyParent.TakeDamage(dmg);
+                if (collision.transform.parent.TryGetComponent(out Monkey monkeyParent))
+                {
+                    monkeyParent.TakeDamage(dmg);
+                }
             }
             print("hit: " + collision);
             Destroy(gameObject);
