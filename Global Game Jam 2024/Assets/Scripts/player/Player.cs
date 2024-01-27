@@ -76,10 +76,10 @@ public class Player : Monkey
         if (!isOnCoolDown)
         {
             // Calculate the rotation angle based on the current move direction
-            float rotationAngle = GetRotationAngle(direction);
+            //float rotationAngle = GetRotationAngle(direction);
 
             // Apply the rotation to your player character
-            monkeyRb.rotation = rotationAngle;
+            //monkeyRb.rotation = rotationAngle;
         
             // If there is input direction, apply force
             if (direction != Vector2.zero)
@@ -96,23 +96,23 @@ public class Player : Monkey
         isOnCoolDown = true;
     }
 
-    private float GetRotationAngle(Vector2 dir)
-    {
-        float angle = 0;
-
-        if (Math.Abs(dir.x) > Math.Abs(dir.y))
-        {
-            // if we primarily move horizontally
-            angle = (dir.x > 0) ? -90 : 90;
-        }
-        else
-        {
-            // if we primarily move vertically
-            angle = (dir.y > 0) ? 0 : 180;
-        }
-        
-        return angle;
-    }
+    // private float GetRotationAngle(Vector2 dir)
+    // {
+    //     float angle = 0;
+    //
+    //     if (Math.Abs(dir.x) > Math.Abs(dir.y))
+    //     {
+    //         // if we primarily move horizontally
+    //         angle = (dir.x > 0) ? -90 : 90;
+    //     }
+    //     else
+    //     {
+    //         // if we primarily move vertically
+    //         angle = (dir.y > 0) ? 0 : 180;
+    //     }
+    //     
+    //     return angle;
+    // }
 
     private IEnumerator DodgeCooldown()
     {

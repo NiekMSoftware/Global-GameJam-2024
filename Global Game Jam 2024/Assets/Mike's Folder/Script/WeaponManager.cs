@@ -9,10 +9,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] int currentWeaponNum;
     [SerializeField] int unlockedWeapon;
     [SerializeField] Weapon currentWeapon;
+    [SerializeField] private Camera cam;
 
     void Update()
     {
-         if(Input.GetKeyDown(KeyCode.Alpha1) && unlockedWeapon >= 0)
+        if(Input.GetKeyDown(KeyCode.Alpha1) && unlockedWeapon >= 0)
         {
             currentWeaponNum = 0;
         }
@@ -25,28 +26,35 @@ public class WeaponManager : MonoBehaviour
             currentWeaponNum = 2;
         }
 
-        if (Input.mouseScrollDelta.y > 0 && currentWeaponNum < unlockedWeapon) 
+        switch (Input.mouseScrollDelta.y)
         {
-            currentWeaponNum++;
+            case > 0 when currentWeaponNum < unlockedWeapon:
+                currentWeaponNum++;
+                break;
+            case > 0:
+                currentWeaponNum = 0;
+                break;
+            case < 0 when currentWeaponNum > 0:
+                currentWeaponNum--;
+                break;
+            case < 0:
+                currentWeaponNum = unlockedWeapon;
+                break;
         }
-        else if (Input.mouseScrollDelta.y > 0) currentWeaponNum = 0;
-
-        if (Input.mouseScrollDelta.y < 0 && currentWeaponNum > 0)
-        {
-            currentWeaponNum--;
-        }
-        else if (Input.mouseScrollDelta.y < 0) currentWeaponNum = unlockedWeapon;
 
         currentWeapon = weapons[currentWeaponNum];
-
-        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        transform.rotation = Quaternion.LookRotation(new Vector3(pos.x, pos.y, 0));
+        
+        Vector3 mousePosition = cam.ScreenToWorldPoint(
+        new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.z));
+        print(mousePosition);
+        
 
         currentWeapon.currentCD -= Time.deltaTime;
 
         if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0)
         {
+            transform.rotation = Quaternion.LookRotation(-new Vector3(mousePosition.x, mousePosition.y, 0));
+
             currentWeapon.Attack();
         }
     }
