@@ -17,7 +17,7 @@ public class Player : Monkey
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
 
-    [SerializeField] Transform cursor;
+
     private Vector2 playerDirection;
     
     private bool pressed;
@@ -32,8 +32,7 @@ public class Player : Monkey
 
     private void FixedUpdate()
     {
-        float direction = (cursor.rotation.y < 0) ? 180 : 0;
-        transform.rotation = Quaternion.Euler(0, direction, 0);
+        GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
 
         if (playerDirection != Vector2.zero)
         {
@@ -49,19 +48,22 @@ public class Player : Monkey
 
         monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
         
-        if (pressed && !isOnCooldown && transform.position.magnitude > 0)
+        if (pressed && !isOnCooldown && monkeyRb.velocity.magnitude > 0)
         {
             Dodge();
-            pressed = false;
         }
     }
 
     protected override void Dodge()
     {
-        monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
-        
-        isOnCooldown = true;
-        StartCoroutine(DodgeCooldown());
+        if (pressed && !isOnCooldown)
+        {
+            print("YEEt");
+            monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
+
+            isOnCooldown = true;
+            StartCoroutine(DodgeCooldown());
+        }
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
@@ -71,7 +73,7 @@ public class Player : Monkey
 
     public void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() > 0 && !isOnCooldown && transform.position.magnitude > 0)
+        if (ctx.ReadValue<float>() > 0 && playerDirection.magnitude > 0)
         {
             pressed = true;
         }
@@ -81,5 +83,6 @@ public class Player : Monkey
     {
         yield return new WaitForSeconds(timeUntilNext);
         isOnCooldown = false;
+        pressed = false;
     }
 }
