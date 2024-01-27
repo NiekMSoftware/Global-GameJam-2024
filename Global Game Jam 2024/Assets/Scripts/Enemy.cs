@@ -74,6 +74,7 @@ public class Enemy : Monkey
     {
         return Vector2.zero;
     }
+
     protected override void Die()
     {
         Destroy(gameObject);

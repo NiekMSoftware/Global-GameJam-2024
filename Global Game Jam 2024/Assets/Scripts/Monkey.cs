@@ -55,6 +55,7 @@ public class Monkey : MonoBehaviour
     public void TakeDamage(float damage)
     {
         Health -= damage;
+        print("Health : " + health + " " + name);
         if(Health < 0)
         {
             Die();

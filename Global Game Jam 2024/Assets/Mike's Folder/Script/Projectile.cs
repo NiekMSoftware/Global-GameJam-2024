@@ -26,10 +26,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision != parent)
+        if (collision.transform != parent)
         {
+            print("not parent");
             if (collision.gameObject.TryGetComponent(out Monkey monkey))
             {
+                print("Found monke");
                 monkey.TakeDamage(dmg);
             }
             Destroy(gameObject);
