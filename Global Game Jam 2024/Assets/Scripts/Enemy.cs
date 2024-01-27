@@ -13,6 +13,9 @@ public class Enemy : Monkey
     [SerializeField] private float standstillCooldown = 1f;
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject barBackground;
+    [SerializeField] private Sprite deadSprite;
+    private bool isDead = false;
+    Vector3 healthBarFullSize;
 
     float barPosMover;
 
@@ -34,21 +37,27 @@ public class Enemy : Monkey
             healthBar = transform.parent.GetChild(1).gameObject;
             barBackground = transform.parent.GetChild(2).gameObject;
         }
+        healthBarFullSize = healthBar.transform.localScale;
+        barBackground.transform.localScale = healthBarFullSize;
     }
 
     private void Update()
     {
-        agent.SetDestination(player.position);
+        if (!isDead)
+        {
+            agent.SetDestination(player.position);
 
-        weapon.currentCD -= Time.deltaTime;
-        healthBar.transform.position = new Vector3(transform.position.x - ((1 - healthBar.transform.localScale.x)/2), transform.position.y+0.5f, +1.472f);
-        barBackground.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, +1.472f);
+            weapon.currentCD -= Time.deltaTime;
+            healthBar.transform.position = new Vector3(transform.position.x - ((healthBarFullSize.x - healthBar.transform.localScale.x) / 2), transform.position.y + 0.5f, +1.472f);
+            barBackground.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, +1.472f);
 
-        CalculateDestination();
+            CalculateDestination();
 
-        HandleStates();
+            HandleStates();
 
-        HandleAttacking();
+            HandleAttacking();
+        }
+        
     }
 
     private void HandleAttacking()
@@ -68,7 +77,7 @@ public class Enemy : Monkey
 
     protected override void OnTakeDamage()
     {
-        healthBar.transform.localScale = new Vector3(((1/maxHealth) * health), 0.1238f, 1);
+        healthBar.transform.localScale = new Vector3(((healthBarFullSize.x/maxHealth) * health), healthBarFullSize.y, 1);
         barPosMover = (1 / maxHealth) * health;
         Debug.Log(barPosMover);
         
@@ -120,7 +129,12 @@ public class Enemy : Monkey
 
     protected override void Die()
     {
-        Destroy(gameObject.transform.parent.gameObject);
+        Destroy(gameObject.transform.parent.GetChild(1).gameObject);
+        Destroy(gameObject.transform.parent.GetChild(2).gameObject);
+        isDead = true;
+        agent.speed = 0;
+        agent.velocity = Vector3.zero;
+        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
         Debug.Log("Enemy Died");
     }
 }
