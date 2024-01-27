@@ -5,6 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float maxDistance;
+    public Transform parent;
     public float dmg;
 
     Vector2 starPos;
@@ -25,10 +26,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out Monkey monkey))
+        if (collision != parent)
         {
-            monkey.TakeDamage(dmg);
+            if (collision.gameObject.TryGetComponent(out Monkey monkey))
+            {
+                monkey.TakeDamage(dmg);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

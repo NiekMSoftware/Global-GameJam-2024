@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3394745346811443402}
   - component: {fileID: 6366145623483496478}
   - component: {fileID: 6306339909273891310}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: I Need More Bullet Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,4 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 50
+  parent: {fileID: 0}
   dmg: 0

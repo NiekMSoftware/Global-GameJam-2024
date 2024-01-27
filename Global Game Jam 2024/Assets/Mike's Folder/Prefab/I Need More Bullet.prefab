@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -976708854737798755}
   - component: {fileID: -5011784749389826997}
   - component: {fileID: 7613091239622303159}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: I Need More Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,4 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 10
+  parent: {fileID: 0}
   dmg: 0
