@@ -290,7 +290,7 @@ PrefabInstance:
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 2113322052}
+      objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missionUpdateLength
       value: 1
@@ -345,7 +345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[0].updateStates.Array.data[0].updateStates
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[1].updateStates.Array.data[0].updateStates
@@ -1154,17 +1154,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &2113322052 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 50875544617138958, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
-  m_PrefabInstance: {fileID: 1896980921}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bfa523213426044e9e0211fb318eb01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3561680415531502409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1230,6 +1219,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2565181516615386654, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565181516615386654, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2749917328259886345, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
