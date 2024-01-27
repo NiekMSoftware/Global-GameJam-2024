@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 350530123}
   - component: {fileID: 350530127}
   - component: {fileID: 350530122}
+  - component: {fileID: 350530128}
   - component: {fileID: 350530124}
   m_Layer: 0
   m_Name: PewPew
@@ -190,7 +191,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 350530122}
   - {fileID: 350530127}
-  - {fileID: 350530122}
+  - {fileID: 350530128}
   currentWeaponNum: 0
   unlockedWeapon: 2
   currentWeapon: {fileID: 0}
@@ -211,6 +212,24 @@ MonoBehaviour:
   currentCD: 0
   happieness: 50
   prefab: {fileID: 3158384650979865808, guid: 3674adf523e3d2840b64c4b37e5a948a, type: 3}
+--- !u!114 &350530128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350530121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2650fcf0ac00a34ba5b07c9b8930a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 50
+  maxCD: 4
+  currentCD: 0
+  happieness: 75
+  attack: {fileID: 6463894519551203193, guid: c3bd460836b2e1f40b22e80fcff29783, type: 3}
+  bulletSpeed: 20
 --- !u!1 &2027311171
 GameObject:
   m_ObjectHideFlags: 0
