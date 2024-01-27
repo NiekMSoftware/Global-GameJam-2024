@@ -19,7 +19,7 @@ public class MissionManager : MonoBehaviour
     [Header("Missions")]
     [SerializeField] private List<Mission> missions = new();
 
-    private int currentMissionIndex;
+    [SerializeField] private int currentMissionIndex;
 
     [SerializeField] private List<string> missionUpdateUITexts = new();
 
@@ -59,6 +59,7 @@ public class MissionManager : MonoBehaviour
         [Multiline(3)]
         public string description;
         public Transform objPos;
+        public bool hasShownUI;
     }
 
     private void Start()
@@ -95,8 +96,10 @@ public class MissionManager : MonoBehaviour
             ShowUpdateMission("Mission Finished: \n" + missions[index].title);
         }
         //if it's an existing mission show ui that updates existing information
-        if (missions[index].state == MissionState.Active)
+        if (missions[index].state == MissionState.Active && !missions[index].updateStates[missions[index].updateStateNum].hasShownUI)
         {
+            print("Update mission");
+            missions[index].updateStates[missions[index].updateStateNum].hasShownUI = true;
             ShowUpdateMission("Mission Update: \n" + missions[index].title + "\n" + missions[index].updateStates[missions[index].updateStateNum].description);
         }
     }
@@ -112,7 +115,7 @@ public class MissionManager : MonoBehaviour
         Mission currentMission = missions[currentMissionIndex];
 
         //Mission Completed
-        if (currentMission.updateStates.Count >= currentMission.updateStateNum)
+        if (currentMission.updateStateNum >= currentMission.updateStates.Count)
         {
             currentMissionIndex++;
             return;
@@ -156,15 +159,17 @@ public class MissionManager : MonoBehaviour
         }
     }
 
-    private void ShowUpdateMission(string text)
+    private void ShowUpdateMission(string text, bool queue = true)
     {
-        if (missionUpdateUIInstance) Destroy(missionUpdateUIInstance);
+        if (missionUpdateUIInstance) Destroy(missionUpdateUIInstance.gameObject);
 
-        missionUpdateUITexts.Add(text);
+        if (queue)
+            missionUpdateUITexts.Add(text);
 
         missionUpdateUIInstance = Instantiate(missionUpdateUI, canvas).GetComponent<MissionUpdateUI>();
 
         missionUpdateUIInstance.text.SetText(missionUpdateUITexts[0]);
+        print(missionUpdateUITexts[0]);
 
         Invoke(nameof(RemoveMissionUpdateText), missionUpdateLength);
     }
@@ -176,7 +181,8 @@ public class MissionManager : MonoBehaviour
 
         if (missionUpdateUITexts.Count > 0)
         {
-            ShowUpdateMission(missionUpdateUITexts[0]);
+            print("Still another one in the queue");
+            ShowUpdateMission(missionUpdateUITexts[0], false);
         }
     }
 
