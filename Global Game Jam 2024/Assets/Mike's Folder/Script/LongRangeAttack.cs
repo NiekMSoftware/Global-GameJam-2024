@@ -13,6 +13,10 @@ public class LongRangeAttack : Weapon
     {
         currentCD = maxCD;
 
+        audio.clip = audioclips[0];
+
+        audio.Play();
+
         GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, Quaternion.identity);
         if (currentAttack.TryGetComponent(out Rigidbody2D rb))
         {

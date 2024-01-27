@@ -9,6 +9,8 @@ public class Weapon : MonoBehaviour
     public float currentCD;
     [SerializeField] protected float happieness;
     public float attackDuration;
+    [SerializeField] protected AudioSource audio;
+    [SerializeField] protected AudioClip[] audioclips;
 
     public virtual void Attack() { }
 }

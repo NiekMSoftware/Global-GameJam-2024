@@ -15,6 +15,10 @@ public class MediumBurst : Weapon
         attackDuration = em.startLifetime;
         em.Play();
 
+        audio.clip = audioclips[0];
+
+        audio.Play();
+
         foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
             if (isEnemy)

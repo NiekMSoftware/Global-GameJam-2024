@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -16,6 +17,9 @@ public class Player : Monkey
     [SerializeField] AnimationClip Walking;
     [SerializeField] ParticleSystem dust;
 
+    [SerializeField] AudioSource audio;
+    float audioCd;
+
     private bool immune = false;
 
     private Vector2 playerDirection;
@@ -28,6 +32,7 @@ public class Player : Monkey
 
     private void Awake()
     {
+        audio = GetComponent<AudioSource>();
         monkeyRb = GetComponent<Rigidbody2D>();
 
         if (healthSlider == null)
@@ -45,16 +50,23 @@ public class Player : Monkey
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
 
+        audioCd -= Time.deltaTime;
+
         if (playerDirection != Vector2.zero)
         {
             CreateDust();
             animator.Play("Running");
-
+            if (audioCd < 0)
+            {
+                audio.Play();
+                audioCd = audio.clip.length;
+            }
             // Apply force in the specified direction
             monkeyRb.AddForce(playerDirection * speed);
         }
         else
         {
+            audio.Stop();
             animator.Play("Idle");
         }
 
