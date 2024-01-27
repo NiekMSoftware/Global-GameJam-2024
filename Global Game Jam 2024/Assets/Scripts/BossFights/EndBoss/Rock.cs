@@ -6,6 +6,7 @@ public class Rock : MonoBehaviour
     [SerializeField] private GameObject circle;
     [SerializeField] private float teleGraphTime;
     [SerializeField] private float destroyTime;
+    [SerializeField] private float damage;
 
     private SpriteRenderer spriteRenderer;
 
@@ -63,4 +64,6 @@ public class Rock : MonoBehaviour
                 break;
         }
     }
+
+    public float GetDamage() => damage;
 }

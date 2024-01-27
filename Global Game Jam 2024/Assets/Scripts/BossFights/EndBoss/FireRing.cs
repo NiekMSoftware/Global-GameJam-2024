@@ -5,6 +5,7 @@ public class FireRing : MonoBehaviour
     [SerializeField] private float maxSize;
     [SerializeField] private float startSize;
     [SerializeField] private float increaseSpeed;
+    [SerializeField] private float damage;
 
     private float currentSizeValue;
 
@@ -33,4 +34,6 @@ public class FireRing : MonoBehaviour
         size.z += currentSizeValue;
         transform.localScale = size;
     }
+
+    public float GetDamage() => damage;
 }

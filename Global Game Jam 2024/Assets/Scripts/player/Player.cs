@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -99,5 +96,16 @@ public class Player : Monkey
         yield return new WaitForSeconds(timeUntilNext);
         isOnCooldown = false;
         pressed = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BossAttack"))
+        {
+            if (collision.TryGetComponent(out Rock rock))
+                TakeDamage(rock.GetDamage());
+            else if (collision.TryGetComponent(out FireRing fireRing))
+                TakeDamage(fireRing.GetDamage());
+        }
     }
 }

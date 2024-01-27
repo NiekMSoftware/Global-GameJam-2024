@@ -101,6 +101,7 @@ MonoBehaviour:
   circle: {fileID: 8281944976804841220}
   teleGraphTime: 3
   destroyTime: 3
+  damage: 5
 --- !u!1 &8281944976804841220
 GameObject:
   m_ObjectHideFlags: 0

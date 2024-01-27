@@ -341,3 +341,4 @@ MonoBehaviour:
   maxSize: 0.01
   startSize: 0.1
   increaseSpeed: 0.002
+  damage: 5
