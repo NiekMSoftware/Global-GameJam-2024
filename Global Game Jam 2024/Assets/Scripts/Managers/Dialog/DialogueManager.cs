@@ -39,7 +39,7 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialoguePanel.SetActive(false);
-        skipText?.SetActive(false);
+        skipText.SetActive(false);
 
         textSpeed = normalTextSpeed;
     }
@@ -82,12 +82,12 @@ public class DialogueManager : MonoBehaviour
 
     private void RemoveSkipText()
     {
-        skipText?.SetActive(false);
+        skipText.SetActive(false);
     }
 
     private void ShowSkipText()
     {
-        skipText?.SetActive(true);
+        skipText.SetActive(true);
         Invoke(nameof(RemoveSkipText), skipTextLength);
     }
 
@@ -122,6 +122,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            RemoveSkipText();
             if (!canActivate && renderText)
             {
                 textSpeed = normalTextSpeed / textSpeedMultiplier;
