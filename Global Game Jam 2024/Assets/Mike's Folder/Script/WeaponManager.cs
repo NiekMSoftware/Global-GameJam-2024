@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     [SerializeField] Weapon[] weapons;
+    [SerializeField] private LaughValue laughManager;
     [SerializeField] int currentWeaponNum;
     [SerializeField] int unlockedWeapon;
     [SerializeField] Weapon currentWeapon;
@@ -13,6 +14,8 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] float maxGlobalCd = 1;
     [SerializeField] int oldWeapon;
     float globalCD;
+
+    public bool stunned = false;
 
     void Update()
     {
@@ -60,9 +63,9 @@ public class WeaponManager : MonoBehaviour
         }
         transform.rotation = Quaternion.LookRotation(new Vector3(mousePosition.x, mousePosition.y, 0).normalized);
 
-        if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0 && globalCD < 0)
+        if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0 && globalCD < 0 && !stunned)
         {
-
+            laughManager.AddAmount(currentWeapon.happieness);
             currentWeapon.Attack();
             if (oldWeapon != currentWeaponNum)
             {

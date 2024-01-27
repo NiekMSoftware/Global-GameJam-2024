@@ -26,6 +26,7 @@ public class FireRing : MonoBehaviour
 
         if (currentSizeValue >= maxSize)
         {
+            print(boss);
             boss.AttackDone();
             Destroy(gameObject);
             return;
