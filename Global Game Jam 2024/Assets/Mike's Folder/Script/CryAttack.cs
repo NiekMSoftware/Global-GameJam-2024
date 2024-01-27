@@ -5,24 +5,33 @@ using UnityEngine;
 public class CryAttack : Weapon
 {
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] LayerMask layer;
     RaycastHit2D hit;
 
     public override void Attack()
     {
         currentCD = maxCD;
 
-        hit = Physics2D.Raycast(transform.position, transform.forward);
+        hit = Physics2D.Raycast(transform.position + transform.forward, transform.forward, Mathf.Infinity, layer);
 
         if (hit.collider != null)
         {
+            print(hit.collider.name);
             if (hit.transform.TryGetComponent(out Monkey monkey)) 
             {
-                lineRenderer.SetPosition(0, transform.position);
-                lineRenderer.SetPosition(1, hit.point);
-
-                lineRenderer.enabled = true;
                 monkey.TakeDamage(dmg);
             }
+            else if (hit.transform.parent != null)
+            {
+                if (hit.transform.TryGetComponent(out Monkey monkeyParent))
+                {
+                    monkeyParent.TakeDamage(dmg);
+                }
+            }
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, hit.point);
+
+            lineRenderer.enabled = true;
         }
 
         Invoke("TurnOffLineRenderer", 1f);

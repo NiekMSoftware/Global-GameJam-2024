@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,8 +15,12 @@ public class Enemy : Monkey
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject barBackground;
     [SerializeField] private Sprite deadSprite;
+    [SerializeField] private SpriteRenderer renderer;
     private bool isDead = false;
     Vector3 healthBarFullSize;
+
+    [SerializeField] private Animator animator;
+
 
     float barPosMover;
 
@@ -51,6 +56,22 @@ public class Enemy : Monkey
             weapon.currentCD -= Time.deltaTime;
             healthBar.transform.position = new Vector3(transform.position.x - ((healthBarFullSize.x - healthBar.transform.localScale.x) / 2), transform.position.y + 0.5f, +1.472f);
             barBackground.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, +1.472f);
+
+
+            animator.gameObject.transform.position = transform.position;
+
+        if (agent.hasPath)
+        {
+            animator.Play("Walking Animation");
+        }
+        else
+        {
+            animator.Play("Idle Animation");
+        }
+
+        weapon.currentCD -= Time.deltaTime;
+        healthBar.transform.position = new Vector3(transform.position.x - ((1 - healthBar.transform.localScale.x)/2), transform.position.y+0.5f, +1.472f);
+        barBackground.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, +1.472f);
 
             CalculateDestination();
 
@@ -135,7 +156,7 @@ public class Enemy : Monkey
         isDead = true;
         agent.speed = 0;
         agent.velocity = Vector3.zero;
-        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = deadSprite;
+        renderer.sprite = deadSprite;
         Debug.Log("Enemy Died");
     }
 }
