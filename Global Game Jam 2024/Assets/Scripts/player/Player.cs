@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,25 +11,32 @@ public class Player : Monkey
     [Header("Dodging Properties")]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float timeUntilNext;
+    
+    [Header("Animator")]
     public AnimationClip Running;
     public AnimationClip Idle;
     [SerializeField] Animator animator;
-
+    
+    [Space]
     [SerializeField] private Transform cursor;
-    public PlayerController playerController;
+    private PlayerController playerController;
     private InputAction moveAction;
     private InputAction dodgeAction;
+    private InputAction cursorAction;
     
     private bool pressed;
     private bool isOnCoolDown = false;
 
     // move direction
     private Vector2 direction;
+    private Vector2 cursorDirection;
     
     private void Awake()
     {
         animator = GetComponent <Animator>();
         playerController = new PlayerController();
+        
+        cursorAction = playerController.gameplay.cursor;
     }
 
     private void OnEnable()
@@ -36,6 +44,9 @@ public class Player : Monkey
         playerController.gameplay.move.performed += OnMovePerformed;
         playerController.gameplay.move.canceled += OnMoveCanceled;
         playerController.gameplay.dodge.performed += OnDodgePerformed;
+
+        cursorAction.performed += OnCursorMovedPerformed;
+        cursorAction.canceled += OnCursorMovedCanceled;
         
         playerController.Enable();
     }
@@ -47,6 +58,9 @@ public class Player : Monkey
         playerController.gameplay.move.performed -= OnMovePerformed;
         playerController.gameplay.move.canceled -= OnMoveCanceled;
         playerController.gameplay.dodge.performed -= OnDodgePerformed;
+        
+        cursorAction.performed -= OnCursorMovedPerformed;
+        cursorAction.canceled -= OnCursorMovedCanceled;
     }
 
     private void Start()
@@ -129,5 +143,24 @@ public class Player : Monkey
             Dodge();
             StartCoroutine(DodgeCooldown());
         }
+    }
+
+    public void OnCursorMovedPerformed(InputAction.CallbackContext context)
+    {
+        cursorDirection = context.ReadValue<Vector2>();
+
+        Vector2 lookPos =
+        Camera.main.ScreenToWorldPoint(
+        new Vector3(cursorDirection.x, cursorDirection.y, Camera.main.transform.position.z));
+        
+        lookPos.x -= transform.position.x;
+        lookPos.y -= transform.position.y;
+        
+         cursor.rotation = Quaternion.LookRotation(new Vector3(lookPos.x, lookPos.y, 0));
+    }
+
+    private void OnCursorMovedCanceled(InputAction.CallbackContext context)
+    {
+        cursorDirection = Vector3.zero;
     }
 }
