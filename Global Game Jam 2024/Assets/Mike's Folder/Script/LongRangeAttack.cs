@@ -7,11 +7,13 @@ public class LongRangeAttack : Weapon
 {
     [SerializeField] GameObject attack;
     [SerializeField] float bulletSpeed;
+    [SerializeField] Animator anim;
+    [SerializeField] AnimationClip haha;
 
     public override void Attack()
     {
         currentCD = maxCD;
-
+        anim.Play("haah");
         GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, Quaternion.identity);
         if (currentAttack.TryGetComponent(out Rigidbody2D rb))
         {
