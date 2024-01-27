@@ -7,7 +7,7 @@ TagManager:
   - NPC
   - Item
   - Hedge
-  - FireCircle
+  - BossAttack
   layers:
   - Default
   - TransparentFX
