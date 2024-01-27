@@ -9,13 +9,13 @@ public class Player : Monkey
     [Header("Dodge Properties")]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float timeUntilNext;
-    [SerializeField] private BoxCollider2D playerCollider;
 
     [Header("Animation")]
     [SerializeField] Animator animator;
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
 
+    private bool immune = false;
 
     private Vector2 playerDirection;
     
@@ -75,7 +75,7 @@ public class Player : Monkey
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
             isOnCooldown = true;
-            playerCollider.enabled = false;
+            immune = true;
             StartCoroutine(DodgeCooldown());
         }
     }
@@ -98,7 +98,12 @@ public class Player : Monkey
         yield return new WaitForSeconds(timeUntilNext);
         isOnCooldown = false;
         pressed = false;
-        playerCollider.enabled = true;
+        immune = false;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (!immune) base.TakeDamage(damage);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
