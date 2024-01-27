@@ -182,6 +182,8 @@ MonoBehaviour:
   weapon: {fileID: 107109053}
   stoppingDistance: 3
   standstillCooldown: 1
+  healthBar: {fileID: 0}
+  barBackground: {fileID: 0}
 --- !u!195 &107109055
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -32,6 +32,8 @@ public class Player : Monkey
 
     private void FixedUpdate()
     {
+        GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
+
         if (playerDirection != Vector2.zero)
         {
             animator.Play("Running");
