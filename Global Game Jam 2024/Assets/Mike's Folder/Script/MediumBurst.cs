@@ -22,7 +22,8 @@ public class MediumBurst : Weapon
                 {
                     if (Vector2.Distance(monkey.transform.position, transform.position) < em.shape.length)
                     {
-                        float value = Vector3.Angle(transform.forward, (monkey.transform.position - transform.position.normalized));
+                        float value = Vector3.Angle(-transform.forward, (monkey.transform.position - transform.position.normalized));
+
 
                         if (Mathf.Abs(value) < em.shape.angle * 1.1f)
                         {
