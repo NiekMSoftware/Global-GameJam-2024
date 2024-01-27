@@ -23,8 +23,9 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 camPos = transform.position;
-        
-        Vector3 smoothedPosition = Vector3.Lerp(camPos, desiredPosition, camSpeed * Time.deltaTime);
+    
+        float blendFraction = 1f - Mathf.Exp(-camSpeed * Time.deltaTime);
+        Vector3 smoothedPosition = Vector3.Lerp(camPos, desiredPosition, blendFraction);
         
         transform.position = smoothedPosition;
     }

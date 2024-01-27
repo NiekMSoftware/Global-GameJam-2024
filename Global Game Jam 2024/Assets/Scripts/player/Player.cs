@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Monkey
@@ -9,10 +10,40 @@ public class Player : Monkey
     [Header("Dodging Properties")]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float timeUntilNext;
+
+    public PlayerController playerController;
+    private InputAction moveAction;
+    private InputAction dodgeAction;
     
     private bool pressed;
     private bool isOnCoolDown = false;
+
+    // move direction
+    private Vector2 direction;
     
+    private void Awake()
+    {
+        playerController = new PlayerController();
+    }
+
+    private void OnEnable()
+    {
+        playerController.gameplay.move.performed += OnMovePerformed;
+        playerController.gameplay.move.canceled += OnMoveCanceled;
+        playerController.gameplay.dodge.performed += OnDodgePerformed;
+        
+        playerController.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerController.Disable();
+        
+        playerController.gameplay.move.performed -= OnMovePerformed;
+        playerController.gameplay.move.canceled -= OnMoveCanceled;
+        playerController.gameplay.dodge.performed -= OnDodgePerformed;
+    }
+
     private void Start()
     {
         InitPlayer();
@@ -28,73 +59,56 @@ public class Player : Monkey
 
     private void Update()
     {
-        pressed = Input.GetKeyDown(KeyCode.Space);
-        
-        // check if the key has been pressed
-        if (pressed && !isOnCoolDown)
-        {
-            Dodge();
-
-            isOnCoolDown = true;
-            StartCoroutine(DodgeCooldown());
-        }
+        pressed = playerController.gameplay.dodge.triggered;
     }
 
     private void FixedUpdate()
     {
-        // Get direction from player input
-        Vector2 direction = Move();
-        
-        // If direction is not zero (player is pressing keys), add force to move
-        monkeyRb.AddForce(direction * speed);
-        
-        // Clamp the velocity to make sure the player doesn't go too fast
-        monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
-    }
+        // Check if the key has been pressed, the player is not already in cooldown,
+        // and the player has a movement direction (only in FixedUpdate)
+        if (pressed && !isOnCoolDown && direction.magnitude > 0)
+        {
+            Dodge();
+            StartCoroutine(DodgeCooldown());
+        }
 
-    protected override void Attack()
-    {
-        base.Attack();
+        // Only apply the move force when not in cooldown.
+        if (!isOnCoolDown)
+        {
+            // Calculate the rotation angle based on the current move direction
+            float rotationAngle = GetRotationAngle(direction);
+
+            // Apply the rotation to your player character
+            monkeyRb.rotation = rotationAngle;
+        
+            // If there is input direction, apply force
+            if (direction != Vector2.zero)
+            {
+                monkeyRb.AddForce(direction * speed);
+            }
+        }
     }
 
     protected override void Dodge()
     {
-        // Add force to dodge the player
-        Vector2 direction = Move();
-        
         // thrust player to position
-        monkeyRb.AddForce(direction * dodgeForce);
+        monkeyRb.AddForce(direction * dodgeForce, ForceMode2D.Impulse);
+        isOnCoolDown = true;
     }
 
-    protected override Vector2 Move()
-    {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-
-        Vector2 direction = new Vector2(x, y);
-
-        if (direction != Vector2.zero)
-        {
-            float angle = GetRotationAngle(direction);
-            monkeyRb.rotation = angle;
-        }
-
-        return direction;
-    }
-
-    private float GetRotationAngle(Vector2 direction)
+    private float GetRotationAngle(Vector2 dir)
     {
         float angle = 0;
 
-        if (Math.Abs(direction.x) > Math.Abs(direction.y))
+        if (Math.Abs(dir.x) > Math.Abs(dir.y))
         {
             // if we primarily move horizontally
-            angle = (direction.x > 0) ? -90 : 90;
+            angle = (dir.x > 0) ? -90 : 90;
         }
         else
         {
             // if we primarily move vertically
-            angle = (direction.y > 0) ? 0 : 180;
+            angle = (dir.y > 0) ? 0 : 180;
         }
         
         return angle;
@@ -105,5 +119,24 @@ public class Player : Monkey
         yield return new WaitForSeconds(timeUntilNext);
         
         isOnCoolDown = false;
+    }
+    
+    private void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        direction = context.ReadValue<Vector2>();
+    }
+
+    private void OnMoveCanceled(InputAction.CallbackContext context)
+    {
+        direction = Vector2.zero;
+    }
+
+    private void OnDodgePerformed(InputAction.CallbackContext context)
+    {
+        if (!isOnCoolDown && direction.magnitude > 0)
+        {
+            Dodge();
+            StartCoroutine(DodgeCooldown());
+        }
     }
 }
