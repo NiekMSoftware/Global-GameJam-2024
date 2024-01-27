@@ -231,8 +231,9 @@ MonoBehaviour:
   weapon: {fileID: 0}
   stoppingDistance: 0
   standstillCooldown: 1
-  healthBar: {fileID: 0}
-  barBackground: {fileID: 0}
+  healthBar: {fileID: 1033687996}
+  barBackground: {fileID: 407293938}
+  deadSprite: {fileID: 0}
   fireRing: {fileID: 780411379637209210, guid: 72a38cff4497d374a8a0234f1b9dc9b8, type: 3}
   rock: {fileID: 4246057234693204834, guid: 6cb89a43f1af94b4b9be00c089c16077, type: 3}
   coolDownTime: 3
@@ -247,6 +248,7 @@ MonoBehaviour:
     attackCoolDownTime: 3
   - randomAmountRange: {x: 3, y: 7}
     attackCoolDownTime: 0.1
+  state: 0
 --- !u!195 &120621238
 NavMeshAgent:
   m_ObjectHideFlags: 0

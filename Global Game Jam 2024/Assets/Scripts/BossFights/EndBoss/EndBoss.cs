@@ -19,9 +19,11 @@ public class EndBoss : Enemy
 
     private float stunTimer;
 
+    private Color startingColor;
+
     [SerializeField] private AttackInfo[] attacks;
 
-    private States state;
+    [SerializeField] private States state;
 
     private enum States
     {
@@ -46,12 +48,17 @@ public class EndBoss : Enemy
     {
         coolDownTimer = coolDownTime;
         stunTimer = stunTime;
+
+        startingColor = spriteRenderer.color;
     }
 
     private void Update()
     {
+        spriteRenderer.color = startingColor;
+
         if (state == States.Stunned)
         {
+            amountOfAttacks = 0;
             spriteRenderer.color = stunColor;
             stunTimer -= Time.deltaTime;
 
@@ -141,9 +148,9 @@ public class EndBoss : Enemy
         print("You defeated the boss!!");
     }
 
-    protected override void OnTakeDamage()
+    public override void TakeDamage(float damage)
     {
         if (state == States.Stunned)
-            base.OnTakeDamage();
+            base.TakeDamage(damage);
     }
 }

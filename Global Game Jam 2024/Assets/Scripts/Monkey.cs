@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Monkey : MonoBehaviour
@@ -52,7 +53,7 @@ public class Monkey : MonoBehaviour
         return Vector2.zero;
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         Health -= damage;
         print("Health : " + health + " " + name);
