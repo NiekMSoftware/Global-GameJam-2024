@@ -9,6 +9,8 @@ public class Enemy : Monkey
     [SerializeField] private Transform player;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float stoppingDistance;
+    private float startSpeed;
+    [SerializeField] private float standstillCooldown = 1f;
 
     private States state;
 
@@ -22,11 +24,14 @@ public class Enemy : Monkey
     {
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<Player>().transform;
+        startSpeed = agent.speed;
     }
 
     private void Update()
     {
         agent.SetDestination(player.position);
+
+        weapon.currentCD -= Time.deltaTime;
 
         CalculateDestination();
 
@@ -59,13 +64,36 @@ public class Enemy : Monkey
         else
         {
             state = States.Idle;
+            //Makes the enemy actually move if the player is far away and isnt attacking
+            if (weapon.currentCD < weapon.maxCD - weapon.attackDuration)
+            {
+                agent.speed = startSpeed;
+            }
+            //Makes the enemy not instantly attack you when it stands still
+            if (weapon.currentCD < standstillCooldown)
+            {
+                weapon.currentCD = standstillCooldown;
+            }
         }
     }
 
     protected override void Attack()
     {
-        weapon.currentCD -= Time.deltaTime;
-        
+
+        if(weapon.currentCD < weapon.maxCD - weapon.attackDuration)
+        {
+            //Rotates the enemy towards the player if it isnt attacking
+            Vector3 dir = player.transform.position - transform.position;
+            Quaternion rot = Quaternion.LookRotation(Vector3.forward, dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * 5);
+            agent.speed = startSpeed;
+        }
+        else
+        {
+            //Sets the enemys speed to zero if it is attacking
+            agent.speed = 0;
+        }
+
         if (weapon.currentCD < 0)
             weapon.Attack();
     }
