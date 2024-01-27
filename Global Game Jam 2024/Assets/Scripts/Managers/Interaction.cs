@@ -4,6 +4,7 @@ using UnityEngine;
 public class Interaction : MonoBehaviour
 {
     [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private Inventory inventory;
     [SerializeField] private TMP_Text interactionText;
 
     private bool interactable;
@@ -14,6 +15,7 @@ public class Interaction : MonoBehaviour
     public enum Interactables
     {
         npc,
+        item
     }
 
     private void Awake()
@@ -28,10 +30,22 @@ public class Interaction : MonoBehaviour
             interactionText.text = "E to talk with NPC";
             interactables = Interactables.npc;
 
-            interactionText.gameObject.SetActive(true);
-            interactedObject = other.gameObject;
-            interactable = true;
+            SetupInteractable(other);
         }
+        else if (other.CompareTag("Item"))
+        {
+            interactionText.text = "E to pickup item";
+            interactables = Interactables.item;
+
+            SetupInteractable(other);
+        }
+    }
+
+    private void SetupInteractable(Collider2D other)
+    {
+        interactionText.gameObject.SetActive(true);
+        interactedObject = other.gameObject;
+        interactable = true;
     }
 
     private void Update()
@@ -45,6 +59,11 @@ public class Interaction : MonoBehaviour
             {
                 dialogueManager.StartDialogue(interactedObject.GetComponent<NPCDialogue>().GetDialogueToActivate());
             }
+            else if (interactables == Interactables.item)
+            {
+                inventory.AddItem(interactedObject.GetComponent<QuestItem>());
+                Destroy(interactedObject);
+            }
             interactable = false;
         }
     }
@@ -57,10 +76,20 @@ public class Interaction : MonoBehaviour
             {
                 dialogueManager.StopDialogue();
             }
-            interactedObject = null;
-            interactable = false;
-            interactionText.text = string.Empty;
-            interactionText.gameObject.SetActive(false);
+
+            ResetInteractables();
         }
+        else if (other.CompareTag("Item"))
+        {
+            ResetInteractables();
+        }
+    }
+
+    private void ResetInteractables()
+    {
+        interactedObject = null;
+        interactable = false;
+        interactionText.text = string.Empty;
+        interactionText.gameObject.SetActive(false);
     }
 }
