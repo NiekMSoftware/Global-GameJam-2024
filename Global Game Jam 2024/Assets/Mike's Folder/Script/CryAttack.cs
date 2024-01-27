@@ -5,13 +5,14 @@ using UnityEngine;
 public class CryAttack : Weapon
 {
     [SerializeField] LineRenderer lineRenderer;
+    [SerializeField] LayerMask layer;
     RaycastHit2D hit;
 
     public override void Attack()
     {
         currentCD = maxCD;
 
-        hit = Physics2D.Raycast(transform.position + transform.forward, transform.forward);
+        hit = Physics2D.Raycast(transform.position + transform.forward, transform.forward, Mathf.Infinity, layer);
 
         if (hit.collider != null)
         {

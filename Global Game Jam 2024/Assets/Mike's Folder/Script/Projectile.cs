@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] float maxDistance;
     public Transform parent;
     public float dmg;
+    public bool isEnemy;
 
     Vector2 starPos;
 
@@ -28,15 +29,32 @@ public class Projectile : MonoBehaviour
     {
         if (collision.transform != parent)
         {
-            if (collision.gameObject.TryGetComponent(out Monkey monkey))
+            if (isEnemy)
             {
-                monkey.TakeDamage(dmg);
-            }
-            else if (collision.transform.parent != null)
-            {
-                if (collision.transform.parent.TryGetComponent(out Monkey monkeyParent))
+                if (collision.gameObject.TryGetComponent(out Player player))
                 {
-                    monkeyParent.TakeDamage(dmg);
+                    player.TakeDamage(dmg);
+                }
+                else if (collision.transform.parent != null)
+                {
+                    if (collision.transform.parent.TryGetComponent(out Player playerParent))
+                    {
+                        playerParent.TakeDamage(dmg);
+                    }
+                }
+            }
+            else
+            {
+                if (collision.gameObject.TryGetComponent(out Monkey monkey))
+                {
+                    monkey.TakeDamage(dmg);
+                }
+                else if (collision.transform.parent != null)
+                {
+                    if (collision.transform.parent.TryGetComponent(out Monkey monkeyParent))
+                    {
+                        monkeyParent.TakeDamage(dmg);
+                    }
                 }
             }
             print("hit: " + collision);

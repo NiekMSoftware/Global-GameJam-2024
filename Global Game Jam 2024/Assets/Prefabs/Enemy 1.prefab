@@ -397,6 +397,9 @@ MonoBehaviour:
   happieness: 0
   attackDuration: 0
   lineRenderer: {fileID: 8830137648833324114}
+  layer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!58 &817541313639885235
 CircleCollider2D:
   m_ObjectHideFlags: 0
