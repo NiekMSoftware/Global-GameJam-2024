@@ -21,18 +21,20 @@ public class MediumBurst : Weapon
         {
             if (obj.TryGetComponent(out Monkey monkey))
             {
-
-                if (Vector2.Distance(monkey.transform.position, transform.position) < em.shape.length)
+                if (monkey != transform.parent)
                 {
-                    print(monkey.name);
-
-                    float value = Vector3.Angle(transform.forward, (monkey.transform.position - transform.position.normalized));
-
-                    print(value);
-
-                    if (Mathf.Abs(value) < em.shape.angle * 1.1f)
+                    if (Vector2.Distance(monkey.transform.position, transform.position) < em.shape.length)
                     {
-                        monkey.TakeDamage(dmg);
+                        print(monkey.name);
+
+                        float value = Vector3.Angle(transform.forward, (monkey.transform.position - transform.position.normalized));
+
+                        print(value);
+
+                        if (Mathf.Abs(value) < em.shape.angle * 1.1f)
+                        {
+                            monkey.TakeDamage(dmg);
+                        }
                     }
                 }
             }
