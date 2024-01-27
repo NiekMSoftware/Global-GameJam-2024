@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3534498352524972512}
   m_Layer: 0
   m_Name: FireRing
-  m_TagString: FireCircle
+  m_TagString: BossAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -341,4 +341,4 @@ MonoBehaviour:
   maxSize: 0.01
   startSize: 0.1
   increaseSpeed: 0.002
-  damage: 5
+  damage: 25

@@ -9,6 +9,7 @@ public class Rock : MonoBehaviour
     [SerializeField] private float damage;
 
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D rockCollider;
 
     private float teleGraphTimer;
     private float destroyTimer;
@@ -24,6 +25,7 @@ public class Rock : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rockCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -41,6 +43,7 @@ public class Rock : MonoBehaviour
         {
             case States.TeleGraph:
                 spriteRenderer.enabled = false;
+                rockCollider.enabled = false;
                 circle.SetActive(true);
 
                 teleGraphTimer -= Time.deltaTime;
@@ -54,6 +57,7 @@ public class Rock : MonoBehaviour
             case States.Grounded:
                 circle.SetActive(false);
                 spriteRenderer.enabled = true;
+                rockCollider.enabled = true;
 
                 destroyTimer -= Time.deltaTime;
 

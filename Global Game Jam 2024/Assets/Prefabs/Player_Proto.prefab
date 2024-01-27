@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8769535165075297458}
   - component: {fileID: 993096675845199814}
   - component: {fileID: 1117106466610745536}
+  - component: {fileID: 9211755813906868724}
   m_Layer: 0
   m_Name: Player_Proto
   m_TagString: Untagged
@@ -101,15 +102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd8f58f3e2edb94aa958647d1220d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 3
+  health: 100
+  maxHealth: 100
   speed: 15
   monkeyRb: {fileID: 8769535165075297458}
   dodgeForce: 20
   timeUntilNext: 0.85
+  playerCollider: {fileID: 9211755813906868724}
   animator: {fileID: 993096675845199814}
   Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
   Walking: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
+  cursor: {fileID: 0}
+  healthSlider: {fileID: 0}
 --- !u!50 &8769535165075297458
 Rigidbody2D:
   serializedVersion: 4
@@ -224,6 +228,51 @@ MonoBehaviour:
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!61 &9211755813906868724
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938677397887284144}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6501805343576809440
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +386,8 @@ MonoBehaviour:
   unlockedWeapon: 2
   currentWeapon: {fileID: 0}
   cam: {fileID: 0}
+  maxGlobalCd: 1
+  oldWeapon: 0
 --- !u!1 &7163140594187381930
 GameObject:
   m_ObjectHideFlags: 0

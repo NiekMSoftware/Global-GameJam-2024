@@ -9,6 +9,7 @@ public class Player : Monkey
     [Header("Dodge Properties")]
     [SerializeField] private float dodgeForce;
     [SerializeField] private float timeUntilNext;
+    [SerializeField] private BoxCollider2D playerCollider;
 
     [Header("Animation")]
     [SerializeField] Animator animator;
@@ -74,6 +75,7 @@ public class Player : Monkey
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
             isOnCooldown = true;
+            playerCollider.enabled = false;
             StartCoroutine(DodgeCooldown());
         }
     }
@@ -96,15 +98,23 @@ public class Player : Monkey
         yield return new WaitForSeconds(timeUntilNext);
         isOnCooldown = false;
         pressed = false;
+        playerCollider.enabled = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("BossAttack"))
+        {
+            if (collision.transform.TryGetComponent(out Rock rock))
+                TakeDamage(rock.GetDamage());
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("BossAttack"))
         {
-            if (collision.TryGetComponent(out Rock rock))
-                TakeDamage(rock.GetDamage());
-            else if (collision.TryGetComponent(out FireRing fireRing))
+            if (collision.TryGetComponent(out FireRing fireRing))
                 TakeDamage(fireRing.GetDamage());
         }
     }
