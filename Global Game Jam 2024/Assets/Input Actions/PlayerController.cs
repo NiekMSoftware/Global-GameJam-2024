@@ -46,7 +46,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""gamepad cursor"",
+                    ""name"": ""cursor"",
                     ""type"": ""Value"",
                     ""id"": ""1ea5cb66-4f1b-4faf-a2b5-4c6fb6a0b764"",
                     ""expectedControlType"": ""Vector2"",
@@ -162,7 +162,18 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""gamepad cursor"",
+                    ""action"": ""cursor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3fdf056-a91f-493c-b1c4-eb564a52d042"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""cursor"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -175,7 +186,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
         m_gameplay_move = m_gameplay.FindAction("move", throwIfNotFound: true);
         m_gameplay_dodge = m_gameplay.FindAction("dodge", throwIfNotFound: true);
-        m_gameplay_gamepadcursor = m_gameplay.FindAction("gamepad cursor", throwIfNotFound: true);
+        m_gameplay_cursor = m_gameplay.FindAction("cursor", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -239,14 +250,14 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_gameplay_move;
     private readonly InputAction m_gameplay_dodge;
-    private readonly InputAction m_gameplay_gamepadcursor;
+    private readonly InputAction m_gameplay_cursor;
     public struct GameplayActions
     {
         private @PlayerController m_Wrapper;
         public GameplayActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @move => m_Wrapper.m_gameplay_move;
         public InputAction @dodge => m_Wrapper.m_gameplay_dodge;
-        public InputAction @gamepadcursor => m_Wrapper.m_gameplay_gamepadcursor;
+        public InputAction @cursor => m_Wrapper.m_gameplay_cursor;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -262,9 +273,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @dodge.started += instance.OnDodge;
             @dodge.performed += instance.OnDodge;
             @dodge.canceled += instance.OnDodge;
-            @gamepadcursor.started += instance.OnGamepadcursor;
-            @gamepadcursor.performed += instance.OnGamepadcursor;
-            @gamepadcursor.canceled += instance.OnGamepadcursor;
+            @cursor.started += instance.OnCursor;
+            @cursor.performed += instance.OnCursor;
+            @cursor.canceled += instance.OnCursor;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -275,9 +286,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @dodge.started -= instance.OnDodge;
             @dodge.performed -= instance.OnDodge;
             @dodge.canceled -= instance.OnDodge;
-            @gamepadcursor.started -= instance.OnGamepadcursor;
-            @gamepadcursor.performed -= instance.OnGamepadcursor;
-            @gamepadcursor.canceled -= instance.OnGamepadcursor;
+            @cursor.started -= instance.OnCursor;
+            @cursor.performed -= instance.OnCursor;
+            @cursor.canceled -= instance.OnCursor;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -299,6 +310,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnDodge(InputAction.CallbackContext context);
-        void OnGamepadcursor(InputAction.CallbackContext context);
+        void OnCursor(InputAction.CallbackContext context);
     }
 }

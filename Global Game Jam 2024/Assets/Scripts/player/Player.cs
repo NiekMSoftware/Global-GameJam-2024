@@ -77,24 +77,17 @@ public class Player : Monkey
             StartCoroutine(DodgeCooldown());
         }
 
-                float YRotation = (cursor.rotation.y < 0) ? 180f : 0f;
-                transform.rotation = Quaternion.Euler(0f, YRotation, 0f);
+        float YRotation = (cursor.rotation.y < 0) ? 180f : 0f;
+        transform.rotation = Quaternion.Euler(0f, YRotation, 0f);
+        
         // Only apply the move force when not in cooldown.
         if (!isOnCoolDown)
         {
-            // Calculate the rotation angle based on the current move direction
-            // float rotationAngle = GetRotationAngle(direction);
-
-            // Apply the rotation to your player character
-            //monkeyRb.rotation = rotationAngle;
-
             // If there is input direction, apply force
             if (direction != Vector2.zero)
             {
                 animator.Play("Running");
-
                 
-
                 // Apply force in the specified direction
                 monkeyRb.AddForce(direction * speed);
             }
@@ -111,24 +104,6 @@ public class Player : Monkey
         monkeyRb.AddForce(direction * dodgeForce, ForceMode2D.Impulse);
         isOnCoolDown = true;
     }
-
-    //private float GetRotationAngle(Vector2 dir)
-    //{
-    //    float angle = 0;
-
-    //    if (Math.Abs(dir.x) > Math.Abs(dir.y))
-    //    {
-    //        // if we primarily move horizontally
-    //       // angle = (dir.x > 0) ? -90 : 90;
-    //    }
-    //    else
-    //    {
-    //        // if we primarily move vertically
-    //      //  angle = (dir.y > 0) ? 0 : 180;
-    //    }
-        
-    //    return angle;
-    //}
 
     private IEnumerator DodgeCooldown()
     {
