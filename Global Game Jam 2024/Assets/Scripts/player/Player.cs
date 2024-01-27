@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Monkey
@@ -22,16 +23,28 @@ public class Player : Monkey
     
     private bool pressed;
     private bool isOnCooldown = false;
-    
+
+    [SerializeField] private Transform cursor;
+    [SerializeField] private Slider healthSlider;
+
     private void Awake()
     {
         monkeyRb = GetComponent<Rigidbody2D>();
 
+        if (healthSlider == null)
+        {
+            healthSlider = GameObject.Find("PlayerHealth").GetComponent<Slider>();
+        }
+        Health = MaxHealth;
+        healthSlider.maxValue = MaxHealth;
+        healthSlider.value = Health;
         monkeyRb.drag = 5f;
+        cursor = transform.GetChild(0);
     }
 
     private void FixedUpdate()
     {
+        GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
 
         if (playerDirection != Vector2.zero)
         {
@@ -47,19 +60,25 @@ public class Player : Monkey
 
         monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
         
-        if (pressed && !isOnCooldown && transform.position.magnitude > 0)
+        if (pressed && !isOnCooldown && monkeyRb.velocity.magnitude > 0)
         {
             Dodge();
-            pressed = false;
         }
     }
-
+    protected override void OnTakeDamage()
+    {
+        healthSlider.value = Health;
+    }
     protected override void Dodge()
     {
-        monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
-        
-        isOnCooldown = true;
-        StartCoroutine(DodgeCooldown());
+        if (pressed && !isOnCooldown)
+        {
+            print("YEEt");
+            monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
+
+            isOnCooldown = true;
+            StartCoroutine(DodgeCooldown());
+        }
     }
 
     public void OnMove(InputAction.CallbackContext ctx)
@@ -69,7 +88,7 @@ public class Player : Monkey
 
     public void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() > 0 && !isOnCooldown && transform.position.magnitude > 0)
+        if (ctx.ReadValue<float>() > 0 && playerDirection.magnitude > 0)
         {
             pressed = true;
         }
@@ -79,5 +98,6 @@ public class Player : Monkey
     {
         yield return new WaitForSeconds(timeUntilNext);
         isOnCooldown = false;
+        pressed = false;
     }
 }

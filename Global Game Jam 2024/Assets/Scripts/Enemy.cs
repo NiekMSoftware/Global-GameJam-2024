@@ -11,6 +11,10 @@ public class Enemy : Monkey
     [SerializeField] private float stoppingDistance;
     private float startSpeed;
     [SerializeField] private float standstillCooldown = 1f;
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject barBackground;
+
+    float barPosMover;
 
     private States state;
 
@@ -25,6 +29,11 @@ public class Enemy : Monkey
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<Player>().transform;
         startSpeed = agent.speed;
+        if(healthBar == null)
+        {
+            healthBar = transform.parent.GetChild(1).gameObject;
+            barBackground = transform.parent.GetChild(2).gameObject;
+        }
     }
 
     private void Update()
@@ -32,6 +41,8 @@ public class Enemy : Monkey
         agent.SetDestination(player.position);
 
         weapon.currentCD -= Time.deltaTime;
+        healthBar.transform.position = new Vector3(transform.position.x - ((1 - healthBar.transform.localScale.x)/2), transform.position.y+0.5f, +1.472f);
+        barBackground.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, +1.472f);
 
         CalculateDestination();
 
@@ -53,6 +64,14 @@ public class Enemy : Monkey
             agent.SetDestination(transform.position);
         else if (state == States.Idle)
             agent.SetDestination(player.position);
+    }
+
+    protected override void OnTakeDamage()
+    {
+        healthBar.transform.localScale = new Vector3(((1/maxHealth) * health), 0.1238f, 1);
+        barPosMover = (1 / maxHealth) * health;
+        Debug.Log(barPosMover);
+        
     }
 
     private void HandleStates()
@@ -79,7 +98,6 @@ public class Enemy : Monkey
 
     protected override void Attack()
     {
-
         if(weapon.currentCD < weapon.maxCD - weapon.attackDuration)
         {
             //Rotates the enemy towards the player if it isnt attacking
@@ -95,17 +113,14 @@ public class Enemy : Monkey
         }
 
         if (weapon.currentCD < 0)
+        {
             weapon.Attack();
-    }
-
-    protected override Vector2 Move()
-    {
-        return Vector2.zero;
+        }
     }
 
     protected override void Die()
     {
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
         Debug.Log("Enemy Died");
     }
 }

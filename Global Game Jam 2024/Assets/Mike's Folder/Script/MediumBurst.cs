@@ -14,7 +14,7 @@ public class MediumBurst : Weapon
         attackDuration = em.startLifetime;
         em.Play();
 
-        foreach (GameObject obj in FindObjectsOfType<GameObject>()) 
+        foreach (GameObject obj in FindObjectsOfType<GameObject>())
         {
             if (obj.TryGetComponent(out Monkey monkey))
             {
@@ -31,17 +31,20 @@ public class MediumBurst : Weapon
                     }
                 }
             }
-            else if (obj.transform.parent.TryGetComponent(out Monkey monkeyParent))
+            else if (obj.transform.parent != null)
             {
-                if (monkeyParent.transform != transform.parent && monkeyParent.transform != transform)
+                if (obj.transform.parent.TryGetComponent(out Monkey monkeyParent))
                 {
-                    if (Vector2.Distance(monkeyParent.transform.position, transform.position) < em.shape.length)
+                    if (monkeyParent.transform != transform.parent && monkeyParent.transform != transform)
                     {
-                        float value = Vector3.Angle(transform.forward, (monkeyParent.transform.position - transform.position.normalized));
-
-                        if (Mathf.Abs(value) < em.shape.angle * 1.1f)
+                        if (Vector2.Distance(monkeyParent.transform.position, transform.position) < em.shape.length)
                         {
-                            monkeyParent.TakeDamage(dmg);
+                            float value = Vector3.Angle(transform.forward, (monkeyParent.transform.position - transform.position.normalized));
+
+                            if (Mathf.Abs(value) < em.shape.angle * 1.1f)
+                            {
+                                monkeyParent.TakeDamage(dmg);
+                            }
                         }
                     }
                 }

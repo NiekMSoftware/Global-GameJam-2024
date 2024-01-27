@@ -10,9 +10,13 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] int unlockedWeapon;
     [SerializeField] Weapon currentWeapon;
     [SerializeField] private Camera cam;
+    [SerializeField] float maxGlobalCd = 1;
+    [SerializeField] int oldWeapon;
+    float globalCD;
 
     void Update()
     {
+        globalCD -= Time.deltaTime;
         if(Input.GetKeyDown(KeyCode.Alpha1) && unlockedWeapon >= 0)
         {
             currentWeaponNum = 0;
@@ -50,13 +54,22 @@ public class WeaponManager : MonoBehaviour
         mousePosition.x -= transform.position.x;
         mousePosition.y -= transform.position.y;
 
-        currentWeapon.currentCD -= Time.deltaTime;
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.currentCD -= Time.deltaTime;
+        }
         transform.rotation = Quaternion.LookRotation(new Vector3(mousePosition.x, mousePosition.y, 0).normalized);
 
-        if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0)
+        if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0 && globalCD < 0)
         {
 
             currentWeapon.Attack();
+            if (oldWeapon != currentWeaponNum)
+            {
+                globalCD = maxGlobalCd;
+            }
         }
+
+        oldWeapon = currentWeaponNum;
     }
 }
