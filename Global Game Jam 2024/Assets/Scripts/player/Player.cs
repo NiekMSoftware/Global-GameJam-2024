@@ -32,8 +32,7 @@ public class Player : Monkey
 
     private void FixedUpdate()
     {
-        float direction = (cursor.rotation.y < 0) ? 180 : 0;
-        transform.rotation = Quaternion.Euler(0, direction, 0);
+        GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
 
         if (playerDirection != Vector2.zero)
         {
