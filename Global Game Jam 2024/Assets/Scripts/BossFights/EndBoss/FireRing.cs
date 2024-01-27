@@ -20,6 +20,13 @@ public class FireRing : MonoBehaviour
     private void Update()
     {
         currentSizeValue += increaseSpeed * Time.deltaTime;
+
+        if (currentSizeValue >= maxSize)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Vector3 size = transform.localScale;
         size.x += currentSizeValue;
         size.y += currentSizeValue;
