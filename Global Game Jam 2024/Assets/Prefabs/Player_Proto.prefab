@@ -5107,7 +5107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 20
-  maxCD: 0.2
+  maxCD: 1
   currentCD: 0
   happieness: 50
   attackDuration: 0
@@ -5125,13 +5125,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 10
-  maxCD: 1
-  currentCD: 0
+  maxCD: 0.6
+  currentCD: 0.6
   happieness: 25
   attackDuration: 0
   body: {fileID: 0}
   attack: {fileID: 4451022026114366605, guid: 3c2e63172a341a849957828d6465a20b, type: 3}
-  bulletSpeed: 2
+  bulletSpeed: 5
 --- !u!114 &3887570026417473917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5145,7 +5145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 50
-  maxCD: 4
+  maxCD: 2
   currentCD: 0
   happieness: 75
   attackDuration: 0
