@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3980400135954248030}
   - component: {fileID: 7731432289579320850}
   - component: {fileID: 538503948255692044}
-  - component: {fileID: 6202837353212626867}
   - component: {fileID: 2578247778065670816}
   m_Layer: 0
   m_Name: Enemy
@@ -129,25 +128,11 @@ MonoBehaviour:
   monkeyRb: {fileID: 0}
   agent: {fileID: 0}
   player: {fileID: 0}
-  weapon: {fileID: 6202837353212626867}
+  weapon: {fileID: 0}
   stoppingDistance: 3
---- !u!114 &6202837353212626867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455040270035086006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0abc93ee5fb07ab4695d3c4ae6e6d131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dmg: 1
-  maxCD: 1
-  currentCD: 1
-  happieness: 1
-  prefab: {fileID: 3158384650979865808, guid: 3674adf523e3d2840b64c4b37e5a948a, type: 3}
+  standstillCooldown: 1
+  healthBar: {fileID: 0}
+  barBackground: {fileID: 0}
 --- !u!61 &2578247778065670816
 BoxCollider2D:
   m_ObjectHideFlags: 0
