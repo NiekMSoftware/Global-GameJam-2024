@@ -9,6 +9,7 @@ public class QuestItem : MonoBehaviour
     public enum ItemType
     {
         None,
-        Wrench
+        Wrench,
+        HedgeTrimmer
     }
 }
