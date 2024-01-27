@@ -109,6 +109,7 @@ MonoBehaviour:
   Running: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
   Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
   animator: {fileID: 993096675845199814}
+  cursor: {fileID: 8586987706238314259}
 --- !u!50 &8769535165075297458
 Rigidbody2D:
   serializedVersion: 4

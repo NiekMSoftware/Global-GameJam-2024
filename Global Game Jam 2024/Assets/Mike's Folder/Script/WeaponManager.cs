@@ -53,7 +53,7 @@ public class WeaponManager : MonoBehaviour
         print(mousePosition);
 
         currentWeapon.currentCD -= Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(-new Vector3(mousePosition.x, mousePosition.y, 0).normalized);
+        transform.rotation = Quaternion.LookRotation(new Vector3(mousePosition.x, mousePosition.y, 0).normalized);
 
         if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0)
         {

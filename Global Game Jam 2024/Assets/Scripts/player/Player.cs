@@ -14,6 +14,7 @@ public class Player : Monkey
     public AnimationClip Idle;
     [SerializeField] Animator animator;
 
+    [SerializeField] private Transform cursor;
     public PlayerController playerController;
     private InputAction moveAction;
     private InputAction dodgeAction;
@@ -76,6 +77,8 @@ public class Player : Monkey
             StartCoroutine(DodgeCooldown());
         }
 
+                float YRotation = (cursor.rotation.y < 0) ? 180f : 0f;
+                transform.rotation = Quaternion.Euler(0f, YRotation, 0f);
         // Only apply the move force when not in cooldown.
         if (!isOnCoolDown)
         {
@@ -91,8 +94,6 @@ public class Player : Monkey
                 animator.Play("Running");
 
                 
-                float YRotation = (direction.x < 0) ? 180f : 0f;
-                transform.rotation = Quaternion.Euler(0f, YRotation, 0f);
 
                 // Apply force in the specified direction
                 monkeyRb.AddForce(direction * speed);
