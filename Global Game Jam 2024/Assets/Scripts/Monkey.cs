@@ -59,10 +59,6 @@ public class Monkey : MonoBehaviour
         {
             Die();
         }
-        if(Health > maxHealth)
-        {
-            Health = maxHealth;
-        }
     }
 
     protected virtual void Die()

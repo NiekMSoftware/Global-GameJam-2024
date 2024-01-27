@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8586987706238314259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2266500255419691604
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   maxHealth: 3
-  speed: 7.5
+  speed: 15
   monkeyRb: {fileID: 0}
   dodgeForce: 20
   timeUntilNext: 0.85
@@ -131,3 +132,110 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1 &6501805343576809440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8586987706238314259}
+  - component: {fileID: 3651983456108340464}
+  - component: {fileID: 2137675967571751918}
+  - component: {fileID: 3887570026417473917}
+  - component: {fileID: 5302180131253069283}
+  m_Layer: 0
+  m_Name: PewPew
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8586987706238314259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501805343576809440}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 616507182949818125}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &3651983456108340464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501805343576809440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0abc93ee5fb07ab4695d3c4ae6e6d131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 20
+  maxCD: 1
+  currentCD: 0
+  happieness: 50
+  prefab: {fileID: 3158384650979865808, guid: 3674adf523e3d2840b64c4b37e5a948a, type: 3}
+--- !u!114 &2137675967571751918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501805343576809440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e482589ea154f5949a26005423d39e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 10
+  maxCD: 1
+  currentCD: 0
+  happieness: 25
+  attack: {fileID: 4451022026114366605, guid: 3c2e63172a341a849957828d6465a20b, type: 3}
+  bulletSpeed: 2
+--- !u!114 &3887570026417473917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501805343576809440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2650fcf0ac00a34ba5b07c9b8930a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 50
+  maxCD: 4
+  currentCD: 0
+  happieness: 75
+  attack: {fileID: 6463894519551203193, guid: c3bd460836b2e1f40b22e80fcff29783, type: 3}
+  bulletSpeed: 20
+--- !u!114 &5302180131253069283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501805343576809440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe08cb68df560645958347c94aa4e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons:
+  - {fileID: 2137675967571751918}
+  - {fileID: 3651983456108340464}
+  - {fileID: 3887570026417473917}
+  currentWeaponNum: 0
+  unlockedWeapon: 2
+  currentWeapon: {fileID: 0}

@@ -21,6 +21,8 @@ public class MissionManager : MonoBehaviour
 
     private int currentMissionIndex;
 
+    [SerializeField] private List<string> missionUpdateUITexts = new();
+
     private MissionUpdateUI missionUpdateUIInstance;
 
     public enum MissionState
@@ -83,19 +85,19 @@ public class MissionManager : MonoBehaviour
         }
 
         //if it's a new mission show ui that says new mission
-        if (missions[index].updateStateNum <= 1)
+        if (missions[index].updateStateNum <= 1 && missions[index].state != MissionState.Finished)
         {
             ShowUpdateMission("New Mission: \n" + missions[index].title + "\n" + missions[index].updateStates[missions[index].updateStateNum].description);
         }
-        //if it's an existing mission show ui that updates existing information
-        else if (missions[index].state == MissionState.Active)
-        {
-            ShowUpdateMission("Mission Update: \n" + missions[index].title + "\n" + missions[index].updateStates[missions[index].updateStateNum].description);
-        }
         //if the mission is finished, show that info
-        else if (missions[index].state == MissionState.Finished)
+        if (missions[index].state == MissionState.Finished)
         {
             ShowUpdateMission("Mission Finished: \n" + missions[index].title);
+        }
+        //if it's an existing mission show ui that updates existing information
+        if (missions[index].state == MissionState.Active)
+        {
+            ShowUpdateMission("Mission Update: \n" + missions[index].title + "\n" + missions[index].updateStates[missions[index].updateStateNum].description);
         }
     }
 
@@ -110,7 +112,7 @@ public class MissionManager : MonoBehaviour
         Mission currentMission = missions[currentMissionIndex];
 
         //Mission Completed
-        if (currentMission.updateStates.Count == currentMission.updateStateNum)
+        if (currentMission.updateStates.Count >= currentMission.updateStateNum)
         {
             currentMissionIndex++;
             return;
@@ -158,9 +160,11 @@ public class MissionManager : MonoBehaviour
     {
         if (missionUpdateUIInstance) Destroy(missionUpdateUIInstance);
 
+        missionUpdateUITexts.Add(text);
+
         missionUpdateUIInstance = Instantiate(missionUpdateUI, canvas).GetComponent<MissionUpdateUI>();
 
-        missionUpdateUIInstance.text.SetText(text);
+        missionUpdateUIInstance.text.SetText(missionUpdateUITexts[0]);
 
         Invoke(nameof(RemoveMissionUpdateText), missionUpdateLength);
     }
@@ -168,6 +172,12 @@ public class MissionManager : MonoBehaviour
     private void RemoveMissionUpdateText()
     {
         Destroy(missionUpdateUIInstance.gameObject);
+        missionUpdateUITexts.RemoveAt(0);
+
+        if (missionUpdateUITexts.Count > 0)
+        {
+            ShowUpdateMission(missionUpdateUITexts[0]);
+        }
     }
 
     #region Editor
