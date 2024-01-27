@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "gamepad cursor",
+                    "name": "cursor",
                     "type": "Value",
                     "id": "1ea5cb66-4f1b-4faf-a2b5-4c6fb6a0b764",
                     "expectedControlType": "Vector2",
@@ -135,12 +135,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6fec3ae5-1a8b-4b78-86b8-95ed1e7c2639",
+                    "id": "a3fdf056-a91f-493c-b1c4-eb564a52d042",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "cursor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bcf6ae7c-5afb-43e0-99fc-a1445871ab58",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "gamepad cursor",
+                    "action": "cursor",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

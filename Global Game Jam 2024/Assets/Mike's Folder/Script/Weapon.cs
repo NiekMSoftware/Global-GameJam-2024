@@ -5,9 +5,10 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] protected float dmg;
-    [SerializeField] protected float maxCD;
+    public float maxCD;
     public float currentCD;
     [SerializeField] protected float happieness;
+    public float attackDuration;
 
     public virtual void Attack() { }
 }
