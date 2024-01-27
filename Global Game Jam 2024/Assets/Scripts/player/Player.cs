@@ -14,6 +14,7 @@ public class Player : Monkey
     [SerializeField] Animator animator;
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
+    [SerializeField] ParticleSystem dust;
 
 
     private Vector2 playerDirection;
@@ -45,6 +46,7 @@ public class Player : Monkey
 
         if (playerDirection != Vector2.zero)
         {
+            CreateDust();
             animator.Play("Running");
 
             // Apply force in the specified direction
@@ -107,5 +109,9 @@ public class Player : Monkey
             else if (collision.TryGetComponent(out FireRing fireRing))
                 TakeDamage(fireRing.GetDamage());
         }
+    }
+    public void CreateDust()
+    {
+        dust.Play();
     }
 }
