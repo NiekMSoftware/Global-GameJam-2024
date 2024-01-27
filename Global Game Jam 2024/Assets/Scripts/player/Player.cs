@@ -12,6 +12,12 @@ public class Player : Monkey
     [SerializeField] private float dodgeForce;
     [SerializeField] private float timeUntilNext;
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] AnimationClip Idle;
+    [SerializeField] AnimationClip Walking;
+
+
     private Vector2 playerDirection;
     
     private bool pressed;
@@ -26,7 +32,19 @@ public class Player : Monkey
 
     private void FixedUpdate()
     {
-        monkeyRb.AddForce(playerDirection * speed);
+
+        if (playerDirection != Vector2.zero)
+        {
+            animator.Play("Running");
+
+            // Apply force in the specified direction
+            monkeyRb.AddForce(playerDirection * speed);
+        }
+        else
+        {
+            animator.Play("Idle");
+        }
+
         monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
         
         if (pressed && !isOnCooldown && transform.position.magnitude > 0)
