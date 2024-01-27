@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3844846775914682708}
   - component: {fileID: 8769535165075297458}
   - component: {fileID: 993096675845199814}
-  - component: {fileID: 7543083107024460964}
+  - component: {fileID: 1117106466610745536}
   m_Layer: 0
   m_Name: Player_Proto
   m_TagString: Untagged
@@ -107,6 +107,9 @@ MonoBehaviour:
   monkeyRb: {fileID: 8769535165075297458}
   dodgeForce: 20
   timeUntilNext: 0.85
+  animator: {fileID: 993096675845199814}
+  Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
+  Walking: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
 --- !u!50 &8769535165075297458
 Rigidbody2D:
   serializedVersion: 4
@@ -155,7 +158,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7543083107024460964
+--- !u!114 &1117106466610745536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,19 +200,7 @@ MonoBehaviour:
     m_ActionId: e951dc9d-c45c-4001-b92b-28b14e79562d
     m_ActionName: gameplay/move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3844846775914682708}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnDodge
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: a9e871be-2322-4c69-8146-cde9279d3808
     m_ActionName: gameplay/dodge[/DualSenseGamepadHID/buttonSouth,/Keyboard/space]
   - m_PersistentCalls:
@@ -290,6 +281,7 @@ MonoBehaviour:
   maxCD: 1
   currentCD: 0
   happieness: 25
+  body: {fileID: 0}
   attack: {fileID: 4451022026114366605, guid: 3c2e63172a341a849957828d6465a20b, type: 3}
   bulletSpeed: 2
 --- !u!114 &3887570026417473917
