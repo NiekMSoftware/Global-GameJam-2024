@@ -54,13 +54,10 @@ public class PostProcessing : MonoBehaviour
             // Set the Vignette intensity
             _vignette.intensity.value = newIntensity;
 
-            // Optionally, you can perform additional actions based on the interpolated intensity value
-            Debug.Log("Current Intensity: " + newIntensity);
-
+            
             // Check if the interpolation is complete
             if (elapsedTime >= duration)
             {
-                Debug.Log("Tween Complete!");
 
                 // Reverse the direction for the next iteration
                 isForward = !isForward;
