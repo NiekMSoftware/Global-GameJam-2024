@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 120621235}
   - component: {fileID: 120621237}
   - component: {fileID: 120621238}
+  - component: {fileID: 120621239}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -221,8 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 184296c625185394299a721b2ddba391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
+  health: 1000
+  maxHealth: 1000
   speed: 0
   monkeyRb: {fileID: 0}
   agent: {fileID: 0}
@@ -237,6 +238,10 @@ MonoBehaviour:
   coolDownTime: 3
   squareSize: 10.47
   squareOffset: {x: -0.24, y: -9.11, z: 0}
+  stunTime: 5
+  stunColor: {r: 1, g: 0.17924517, b: 0.17924517, a: 1}
+  amountOfAttacksToStun: 3
+  spriteRenderer: {fileID: 120621235}
   attacks:
   - randomAmountRange: {x: 1, y: 3}
     attackCoolDownTime: 3
@@ -264,6 +269,51 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!61 &120621239
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120621234}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1001 &189197419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -315,6 +365,18 @@ PrefabInstance:
     - target: {fileID: 1938677397887284144, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
       propertyPath: m_Name
       value: Player_Proto
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137675967571751918, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: maxCD
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2137675967571751918, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: bulletSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651983456108340464, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: maxCD
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 5302180131253069283, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
       propertyPath: cam

@@ -8,10 +8,27 @@ public class EndBoss : Enemy
     [SerializeField] private float coolDownTime;
     [SerializeField] private float squareSize;
     [SerializeField] private Vector3 squareOffset;
+    [SerializeField] private float stunTime;
+    [SerializeField] private Color stunColor;
+    [SerializeField] private int amountOfAttacksToStun;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    private int amountOfAttacks = 0;
 
     private float coolDownTimer;
 
+    private float stunTimer;
+
     [SerializeField] private AttackInfo[] attacks;
+
+    private States state;
+
+    private enum States
+    {
+        Idle,
+        Attacking,
+        Stunned
+    }
 
     [System.Serializable]
     private struct AttackInfo
@@ -20,13 +37,33 @@ public class EndBoss : Enemy
         public float attackCoolDownTime;
     }
 
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Start()
     {
         coolDownTimer = coolDownTime;
+        stunTimer = stunTime;
     }
 
     private void Update()
     {
+        if (state == States.Stunned)
+        {
+            spriteRenderer.color = stunColor;
+            stunTimer -= Time.deltaTime;
+
+            if (stunTimer <= 0)
+            {
+                stunTimer = stunTime;
+                state = States.Idle;
+            }
+        }
+
+        if (state != States.Idle) return;
+
         coolDownTimer -= Time.deltaTime;
 
         if (coolDownTimer <= 0)
@@ -43,6 +80,15 @@ public class EndBoss : Enemy
 
     protected override void Attack()
     {
+        state = States.Attacking;
+        amountOfAttacks++;
+
+        if (amountOfAttacks >= amountOfAttacksToStun)
+        {
+            state = States.Stunned;
+            return;
+        }
+
         int randomAttackNum = Random.Range(0, attacks.Length);
 
         AttackInfo attackInfo = attacks[randomAttackNum];
@@ -70,6 +116,7 @@ public class EndBoss : Enemy
             yield return new WaitForSeconds(attackInfo.attackCoolDownTime);
 
             action.Invoke();
+            state = States.Idle;
         }
     }
 
@@ -86,5 +133,17 @@ public class EndBoss : Enemy
         randomPosition.z = 0;
 
         Instantiate(rock, randomPosition, Quaternion.identity);
+    }
+
+    protected override void Die()
+    {
+        Time.timeScale = 0f;
+        print("You defeated the boss!!");
+    }
+
+    protected override void OnTakeDamage()
+    {
+        if (state == States.Stunned)
+            base.OnTakeDamage();
     }
 }
