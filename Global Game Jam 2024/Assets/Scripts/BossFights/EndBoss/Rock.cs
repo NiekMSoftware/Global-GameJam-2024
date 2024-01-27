@@ -8,6 +8,8 @@ public class Rock : MonoBehaviour
     [SerializeField] private float destroyTime;
     [SerializeField] private float damage;
 
+    public EndBoss boss;
+
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D rockCollider;
 
@@ -63,7 +65,9 @@ public class Rock : MonoBehaviour
 
                 if (destroyTimer <= 0)
                 {
+                    boss.AttackDone();
                     Destroy(gameObject);
+                    return;
                 }
                 break;
         }

@@ -7,6 +7,8 @@ public class FireRing : MonoBehaviour
     [SerializeField] private float increaseSpeed;
     [SerializeField] private float damage;
 
+    public EndBoss boss;
+
     private float currentSizeValue;
 
     private void Start()
@@ -24,6 +26,7 @@ public class FireRing : MonoBehaviour
 
         if (currentSizeValue >= maxSize)
         {
+            boss.AttackDone();
             Destroy(gameObject);
             return;
         }

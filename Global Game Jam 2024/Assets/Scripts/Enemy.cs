@@ -27,12 +27,13 @@ public class Enemy : Monkey
         Attacking
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<Player>().transform;
         startSpeed = agent.speed;
-        if(healthBar == null)
+
+        if (healthBar == null)
         {
             healthBar = transform.parent.GetChild(1).gameObject;
             barBackground = transform.parent.GetChild(2).gameObject;

@@ -13,6 +13,8 @@ public class EndBoss : Enemy
     [SerializeField] private int amountOfAttacksToStun;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    private Animator animator;
+
     private int amountOfAttacks = 0;
 
     private float coolDownTimer;
@@ -39,9 +41,13 @@ public class EndBoss : Enemy
         public float attackCoolDownTime;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -55,6 +61,8 @@ public class EndBoss : Enemy
     private void Update()
     {
         spriteRenderer.color = startingColor;
+
+        animator.SetBool("IsAttacking", true);
 
         if (state == States.Stunned)
         {
@@ -70,6 +78,8 @@ public class EndBoss : Enemy
         }
 
         if (state != States.Idle) return;
+
+        animator.SetBool("IsAttacking", false);
 
         coolDownTimer -= Time.deltaTime;
 
@@ -123,13 +133,18 @@ public class EndBoss : Enemy
             yield return new WaitForSeconds(attackInfo.attackCoolDownTime);
 
             action.Invoke();
-            state = States.Idle;
         }
+    }
+
+    public void AttackDone()
+    {
+        state = States.Idle;
     }
 
     private void ThumpAttack()
     {
         Instantiate(fireRing, transform.position, Quaternion.identity);
+        fireRing.GetComponent<FireRing>().boss = this;
     }
 
     private void RockAttack()
@@ -140,6 +155,7 @@ public class EndBoss : Enemy
         randomPosition.z = 0;
 
         Instantiate(rock, randomPosition, Quaternion.identity);
+        rock.GetComponent<Rock>().boss = this;
     }
 
     protected override void Die()
