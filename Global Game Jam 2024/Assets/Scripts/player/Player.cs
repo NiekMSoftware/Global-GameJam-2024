@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Monkey
@@ -22,12 +23,23 @@ public class Player : Monkey
     
     private bool pressed;
     private bool isOnCooldown = false;
-    
+
+    [SerializeField] private Transform cursor;
+    [SerializeField] private Slider healthSlider;
+
     private void Awake()
     {
         monkeyRb = GetComponent<Rigidbody2D>();
 
+        if (healthSlider == null)
+        {
+            healthSlider = GameObject.Find("PlayerHealth").GetComponent<Slider>();
+        }
+        Health = MaxHealth;
+        healthSlider.maxValue = MaxHealth;
+        healthSlider.value = Health;
         monkeyRb.drag = 5f;
+        cursor = transform.GetChild(0);
     }
 
     private void FixedUpdate()
@@ -53,7 +65,10 @@ public class Player : Monkey
             Dodge();
         }
     }
-
+    protected override void OnTakeDamage()
+    {
+        healthSlider.value = Health;
+    }
     protected override void Dodge()
     {
         if (pressed && !isOnCooldown)
