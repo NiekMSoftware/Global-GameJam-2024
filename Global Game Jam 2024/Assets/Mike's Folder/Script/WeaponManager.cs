@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -40,7 +41,7 @@ public class WeaponManager : MonoBehaviour
 
         Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        transform.rotation = Quaternion.LookRotation(pos);
+        transform.rotation = Quaternion.LookRotation(new Vector3(pos.x, pos.y, 0));
 
         currentWeapon.currentCD -= Time.deltaTime;
 

@@ -23,11 +23,11 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (TryGetComponent(out Monkey monkey))
+        if (collision.gameObject.TryGetComponent(out Monkey monkey))
         {
-
+            monkey.TakeDamage(dmg);
         }
         Destroy(gameObject);
     }
