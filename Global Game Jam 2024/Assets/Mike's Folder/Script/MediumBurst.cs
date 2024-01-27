@@ -18,7 +18,7 @@ public class MediumBurst : Weapon
         {
             if (obj.TryGetComponent(out Monkey monkey))
             {
-                if (monkey != transform.parent)
+                if (monkey.transform != transform.parent && monkey.transform != transform)
                 {
                     if (Vector2.Distance(monkey.transform.position, transform.position) < em.shape.length)
                     {
@@ -27,6 +27,21 @@ public class MediumBurst : Weapon
                         if (Mathf.Abs(value) < em.shape.angle * 1.1f)
                         {
                             monkey.TakeDamage(dmg);
+                        }
+                    }
+                }
+            }
+            else if (obj.transform.parent.TryGetComponent(out Monkey monkeyParent))
+            {
+                if (monkeyParent.transform != transform.parent && monkeyParent.transform != transform)
+                {
+                    if (Vector2.Distance(monkeyParent.transform.position, transform.position) < em.shape.length)
+                    {
+                        float value = Vector3.Angle(transform.forward, (monkeyParent.transform.position - transform.position.normalized));
+
+                        if (Mathf.Abs(value) < em.shape.angle * 1.1f)
+                        {
+                            monkeyParent.TakeDamage(dmg);
                         }
                     }
                 }

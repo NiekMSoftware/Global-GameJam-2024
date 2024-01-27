@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GenericAttack : Weapon
 {
+    [SerializeField] Transform body;
     [SerializeField] GameObject attack;
     [SerializeField] float bulletSpeed; 
 
@@ -15,7 +16,7 @@ public class GenericAttack : Weapon
 
         if (currentAttack.TryGetComponent(out Rigidbody2D rb))
         {
-            currentAttack.GetComponent<Projectile>().parent = transform.parent;
+            currentAttack.GetComponent<Projectile>().parent = (body == null) ? transform.parent : body;
             currentAttack.GetComponent<Projectile>().dmg = dmg;
             rb.AddForce(transform.forward * bulletSpeed, ForceMode2D.Impulse);
         }

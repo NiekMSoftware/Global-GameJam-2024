@@ -28,12 +28,15 @@ public class Projectile : MonoBehaviour
     {
         if (collision.transform != parent)
         {
-            print("not parent");
             if (collision.gameObject.TryGetComponent(out Monkey monkey))
             {
-                print("Found monke");
                 monkey.TakeDamage(dmg);
             }
+            else if (collision.transform.parent.TryGetComponent(out Monkey monkeyParent))
+            {
+                monkeyParent.TakeDamage(dmg);
+            }
+            print("hit: " + collision);
             Destroy(gameObject);
         }
     }
