@@ -76,6 +76,8 @@ public class MissionManager : MonoBehaviour
     public void UpdateMission(int index)
     {
         //if all submissions are completed, the mission is completed and set the missionstate to finished
+        if (currentMissionIndex >= missions.Count) return;
+
         if (missions[index].updateStateNum >= missions[index].updateStates.Count)
         {
             missions[index].state = MissionState.Finished;
@@ -98,7 +100,6 @@ public class MissionManager : MonoBehaviour
         //if it's an existing mission show ui that updates existing information
         if (missions[index].state == MissionState.Active && !missions[index].updateStates[missions[index].updateStateNum].hasShownUI)
         {
-            print("Update mission");
             missions[index].updateStates[missions[index].updateStateNum].hasShownUI = true;
             ShowUpdateMission("Mission Update: \n" + missions[index].title + "\n" + missions[index].updateStates[missions[index].updateStateNum].description);
         }
@@ -110,24 +111,36 @@ public class MissionManager : MonoBehaviour
         UpdateMission(index);
     }
 
+    public void OnTalkToNPC(NPCDialogue npc)
+    {
+        Mission currentMission = missions[currentMissionIndex];
+
+        MissionUpdateState currentSubMission = currentMission.updateStates[currentMission.updateStateNum];
+
+        //Talked to NPC
+        if (currentSubMission.updateStates == UpdateCondition.TalkToNPC && currentSubMission.npc == npc.gameObject)
+        {
+            currentMission.updateStateNum++;
+            UpdateMission(currentMissionIndex);
+        }
+    }
+
     public void CheckForUpdateMission()
     {
+        if (currentMissionIndex >= missions.Count) return;
+
         Mission currentMission = missions[currentMissionIndex];
 
         //Mission Completed
         if (currentMission.updateStateNum >= currentMission.updateStates.Count)
         {
             currentMissionIndex++;
+            UpdateMission(currentMissionIndex);
             return;
         }
 
         MissionUpdateState currentSubMission = currentMission.updateStates[currentMission.updateStateNum];
 
-        //Talked to npc
-        //if (currentSubMission.updateStates == UpdateCondition.TalkToNPC && go == currentSubMission.npc)
-        //{
-        //    IncreaseMissionUpdateState(i);
-        //}
         ////Killed enemy
         //else if (currentSubMission.updateStates == UpdateCondition.KillEnemies)
         //{
@@ -152,11 +165,9 @@ public class MissionManager : MonoBehaviour
         //    }
         //}
         //Went to location
-        if (Vector3.Distance(currentSubMission.location.position, player.position) <= acceptDistance)
-        {
-            print("player close to target");
-            IncreaseMissionUpdateState(currentMissionIndex);
-        }
+        if (currentSubMission.updateStates == UpdateCondition.GoToLocation)
+            if (Vector3.Distance(currentSubMission.location.position, player.position) <= acceptDistance)
+                IncreaseMissionUpdateState(currentMissionIndex);
     }
 
     private void ShowUpdateMission(string text, bool queue = true)
@@ -169,8 +180,8 @@ public class MissionManager : MonoBehaviour
         missionUpdateUIInstance = Instantiate(missionUpdateUI, canvas).GetComponent<MissionUpdateUI>();
 
         missionUpdateUIInstance.text.SetText(missionUpdateUITexts[0]);
-        print(missionUpdateUITexts[0]);
 
+        CancelInvoke();
         Invoke(nameof(RemoveMissionUpdateText), missionUpdateLength);
     }
 
@@ -181,44 +192,7 @@ public class MissionManager : MonoBehaviour
 
         if (missionUpdateUITexts.Count > 0)
         {
-            print("Still another one in the queue");
             ShowUpdateMission(missionUpdateUITexts[0], false);
         }
     }
-
-    #region Editor
-#if UNITY_EDITOR
-    [CustomEditor(typeof(MissionManager))]
-    public class MissionManagerEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-
-            MissionManager missionManager = (MissionManager)target;
-
-            //if (npcDialogue.mission == MissionToDo.Update)
-            //{
-            //    EditorGUILayout.LabelField("Mission Index");
-            //    npcDialogue.missionIndex = EditorGUILayout.IntField(npcDialogue.missionIndex);
-            //}
-            //else if (npcDialogue.mission == MissionToDo.Add)
-            //{
-            //    EditorGUILayout.LabelField("Mission Title");
-            //    npcDialogue.title = EditorGUILayout.TextField(npcDialogue.title);
-            //    EditorGUILayout.LabelField("Mission Description");
-            //    npcDialogue.description = EditorGUILayout.TextField(npcDialogue.description);
-            //    EditorGUILayout.LabelField("Mission Location");
-            //    npcDialogue.posTransform = EditorGUILayout.ObjectField("posTransform", npcDialogue.posTransform, typeof(Transform), true) as Transform;
-            //}
-
-            //if (missionManager.missions[0].updateStates[0].updateStates == UpdateState.TalkToNPC)
-            //{
-            //    SerializedProperty npc = serializedObject.FindProperty("npc");
-            //    EditorGUILayout.ObjectField(npc, new GUIContent("Title", "Description"));
-            //}
-        }
-    }
-#endif
-    #endregion
 }

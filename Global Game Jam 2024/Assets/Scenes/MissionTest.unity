@@ -491,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3749566262845652250, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8865870381704261959, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: m_LocalPosition.x
@@ -542,6 +542,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1478084155}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missionUpdateLength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[1].updateStates.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -550,9 +554,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missions.Array.data[0].updateStates.Array.data[0].npc
+      value: 
+      objectReference: {fileID: 422741479}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[0].updateStates.Array.data[0].location
       value: 
-      objectReference: {fileID: 1271490380}
+      objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[1].updateStates.Array.data[0].location
       value: 
@@ -562,12 +570,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1774941858}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missions.Array.data[0].updateStates.Array.data[0].hasShownUI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missions.Array.data[1].updateStates.Array.data[0].hasShownUI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missions.Array.data[2].updateStates.Array.data[0].hasShownUI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missions.Array.data[0].updateStates.Array.data[0].description
+      value: Yess, go to talk to people or something
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[1].updateStates.Array.data[0].description
       value: AAAAAAAAAAAAAA
       objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[2].updateStates.Array.data[0].description
       value: Game nearly done?!>!??!?!?!?!
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+      propertyPath: missions.Array.data[0].updateStates.Array.data[0].updateStates
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
       propertyPath: missions.Array.data[1].updateStates.Array.data[0].updateStates
@@ -825,6 +853,10 @@ PrefabInstance:
       propertyPath: dialoguePanel
       value: 
       objectReference: {fileID: 1804902125}
+    - target: {fileID: 7721354019461916010, guid: 7dcdfff5c1645e940b395e6c9639b591, type: 3}
+      propertyPath: missionManager
+      value: 
+      objectReference: {fileID: 1593690508}
     - target: {fileID: 7721354019461916010, guid: 7dcdfff5c1645e940b395e6c9639b591, type: 3}
       propertyPath: dialogues.Array.data[0].npc
       value: 
@@ -1113,6 +1145,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 616507182949818125, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
   m_PrefabInstance: {fileID: 1896980921}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1593690508 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8917882866065019320, guid: 9dff9326d2f045943aa56ecc5fd8aa89, type: 3}
+  m_PrefabInstance: {fileID: 231075565}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 468bb9f7624d7854ea2055f075b6b7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1618766885 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7721354019461916010, guid: 7dcdfff5c1645e940b395e6c9639b591, type: 3}

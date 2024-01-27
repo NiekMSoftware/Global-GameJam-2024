@@ -23,7 +23,6 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print("ontriggerenter!");
         if (other.CompareTag("NPC"))
         {
             interactionText.text = "E to talk with NPC";

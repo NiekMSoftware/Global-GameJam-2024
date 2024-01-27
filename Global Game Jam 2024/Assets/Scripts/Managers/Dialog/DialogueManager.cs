@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -11,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private int skipTextLength;
     [SerializeField] private float normalTextSpeed;
     [SerializeField] private float textSpeedMultiplier;
+    [SerializeField] private MissionManager missionManager;
 
     [SerializeField] Dialogues[] dialogues;
 
@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour
 
     private float textSpeed;
 
-    [Serializable]
+    [System.Serializable]
     class Dialogues
     {
         [TextArea(1, 3)]
@@ -140,7 +140,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
-                    dialogues[currentDialogue].npc.OnEndDialogue();
+                    dialogues[currentDialogue].npc.OnEndDialogue(missionManager);
                     renderText = false;
                     canActivate = true;
                     RemoveText();
@@ -157,7 +157,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StopDialogue()
     {
-        dialogues[currentDialogue].npc.OnEndDialogue();
+        dialogues[currentDialogue].npc.OnEndDialogue(missionManager);
         renderText = false;
         canActivate = true;
         RemoveText();

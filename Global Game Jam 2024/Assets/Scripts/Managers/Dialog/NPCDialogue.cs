@@ -4,6 +4,7 @@ public class NPCDialogue : MonoBehaviour
 {
     [SerializeField] private int dialogueToActivate;
     [SerializeField] private int annoyedDialogue;
+
     //[SerializeField] Animator animator;
 
     public int GetDialogueToActivate()
@@ -13,8 +14,10 @@ public class NPCDialogue : MonoBehaviour
         return dialogueToActivate;
     }
 
-    public void OnEndDialogue()
+    public void OnEndDialogue(MissionManager missionManager)
     {
+        missionManager.OnTalkToNPC(this);
+
         //animator.SetBool("IsTalking", false);
 
         dialogueToActivate = annoyedDialogue;
