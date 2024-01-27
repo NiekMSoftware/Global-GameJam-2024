@@ -44,25 +44,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468bb9f7624d7854ea2055f075b6b7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  inventory: {fileID: 0}
+  acceptDistance: 5
   canvas: {fileID: 0}
   missionUpdateUI: {fileID: 3674005744768808706, guid: e071540e2b261a84d8d31d2410746a74, type: 3}
-  missionUpdateLength: 3
+  missionUpdateLength: 1
   missions:
   - title: Quest 1
+    state: 0
+    updateStates:
+    - updateStates: 0
+      npc: {fileID: 0}
+      enemies: []
+      location: {fileID: 0}
+      description: Yess, go to talk to people or something
+      objPos: {fileID: 0}
+      itemType: 0
+      hasShownUI: 1
+    updateStateNum: 0
+  - title: Quest 2
+    state: 0
+    updateStates:
+    - updateStates: 3
+      npc: {fileID: 0}
+      enemies: []
+      location: {fileID: 0}
+      description: AAAAAAAAAAAAAA
+      objPos: {fileID: 0}
+      itemType: 0
+      hasShownUI: 1
+    updateStateNum: 0
+  - title: Quest 3
     state: 0
     updateStates:
     - updateStates: 2
       npc: {fileID: 0}
       enemies: []
       location: {fileID: 0}
-      description: Yess, go to location
+      description: Game nearly done?!>!??!?!?!?!
       objPos: {fileID: 0}
+      itemType: 0
+      hasShownUI: 1
     updateStateNum: 0
-  - title: Quest 2
-    state: 0
-    updateStates: []
-    updateStateNum: 0
-  - title: Quest 3
-    state: 0
-    updateStates: []
-    updateStateNum: 0
+  currentMissionIndex: 0
+  missionUpdateUITexts: []
