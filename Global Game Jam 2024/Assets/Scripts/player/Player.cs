@@ -21,6 +21,8 @@ public class Player : Monkey
     float audioCd;
 
     private bool immune = false;
+    public bool immune = false;
+    public bool stunned = false;
 
     private Vector2 playerDirection;
     
@@ -53,6 +55,7 @@ public class Player : Monkey
         audioCd -= Time.deltaTime;
 
         if (playerDirection != Vector2.zero)
+        if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
             animator.Play("Running");
@@ -70,9 +73,10 @@ public class Player : Monkey
             animator.Play("Idle");
         }
 
-        monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
+        if (!stunned)
+            monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
         
-        if (pressed && !isOnCooldown && monkeyRb.velocity.magnitude > 0)
+        if (pressed && !isOnCooldown && monkeyRb.velocity.magnitude > 0 && !stunned)
         {
             Dodge();
         }
@@ -117,7 +121,11 @@ public class Player : Monkey
 
     public override void TakeDamage(float damage)
     {
-        if (!immune) base.TakeDamage(damage);
+        if (!immune)
+        {
+            print("take damage");
+            base.TakeDamage(damage);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

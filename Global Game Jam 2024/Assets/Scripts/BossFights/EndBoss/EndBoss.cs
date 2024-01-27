@@ -64,11 +64,18 @@ public class EndBoss : Enemy
 
         animator.SetBool("IsAttacking", true);
 
+        print("Going into Stunned state");
         if (state == States.Stunned)
         {
+            print("In stunned state");
+
+            CancelInvoke();
+
             amountOfAttacks = 0;
             spriteRenderer.color = stunColor;
             stunTimer -= Time.deltaTime;
+
+            print("Setting stunColor!");
 
             if (stunTimer <= 0)
             {
@@ -76,8 +83,15 @@ public class EndBoss : Enemy
                 state = States.Idle;
             }
         }
+        else
+        {
+            Debug.LogError("DHAUHDUAH");
+        }
 
-        if (state != States.Idle) return;
+        if (state != States.Idle)
+        {
+            return;
+        }
 
         animator.SetBool("IsAttacking", false);
 
@@ -97,6 +111,7 @@ public class EndBoss : Enemy
 
     protected override void Attack()
     {
+        print("ATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACk!");
         state = States.Attacking;
         amountOfAttacks++;
 

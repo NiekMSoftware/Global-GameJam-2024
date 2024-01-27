@@ -55,9 +55,8 @@ public class MissionManager : MonoBehaviour
     {
         public UpdateCondition updateStates;
         public GameObject npc;
-        public GameObject[] enemies;
         public Transform location;
-        [System.NonSerialized] public int currentEnemiesKilled;
+        public List<Enemy> enemiesToCure = new();
         [Multiline(3)]
         public string description;
         public Transform objPos;
@@ -167,6 +166,7 @@ public class MissionManager : MonoBehaviour
         //        }
         //    }
         //}
+
         //Went to location
         if (currentSubMission.updateStates == UpdateCondition.GoToLocation)
             if (Vector3.Distance(currentSubMission.location.position, player.position) <= acceptDistance)
@@ -190,6 +190,17 @@ public class MissionManager : MonoBehaviour
 
         CancelInvoke();
         Invoke(nameof(RemoveMissionUpdateText), missionUpdateLength);
+    }
+
+    public void CuredEnemy(Enemy enemy)
+    {
+        Mission currentMission = missions[currentMissionIndex];
+
+        MissionUpdateState currentSubMission = currentMission.updateStates[currentMission.updateStateNum];
+
+        if (currentSubMission.updateStates == UpdateCondition.KillEnemies)
+            if (currentSubMission.enemiesToCure.Count <= 0)
+                IncreaseMissionUpdateState(currentMissionIndex);
     }
 
     private void RemoveMissionUpdateText()

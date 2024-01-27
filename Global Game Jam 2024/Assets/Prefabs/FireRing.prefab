@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSize: 0.01
-  startSize: 0.1
+  startSize: 0.5
   increaseSpeed: 0.002
   damage: 25
+  boss: {fileID: 0}
