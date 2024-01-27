@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2266500255419691604}
   - component: {fileID: 3844846775914682708}
   - component: {fileID: 8769535165075297458}
+  - component: {fileID: 993096675845199814}
   m_Layer: 0
   m_Name: Player_Proto
   m_TagString: Untagged
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -973238967, guid: 4462b0d4d9ef7184bb2f1937e87379ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,9 +103,12 @@ MonoBehaviour:
   health: 0
   maxHealth: 3
   speed: 15
-  monkeyRb: {fileID: 0}
+  monkeyRb: {fileID: 8769535165075297458}
   dodgeForce: 20
   timeUntilNext: 0.85
+  Running: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
+  Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
+  animator: {fileID: 993096675845199814}
 --- !u!50 &8769535165075297458
 Rigidbody2D:
   serializedVersion: 4
@@ -132,6 +136,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &993096675845199814
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1938677397887284144}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 77eee2a34ed98fe478d5687a94d43415, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6501805343576809440
 GameObject:
   m_ObjectHideFlags: 0
