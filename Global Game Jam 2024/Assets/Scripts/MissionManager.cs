@@ -9,6 +9,7 @@ using UnityEditor;
 public class MissionManager : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private Inventory inventory;
     [SerializeField] private float acceptDistance = 5f;
 
     [Header("Mission Update")]
@@ -36,7 +37,8 @@ public class MissionManager : MonoBehaviour
     {
         TalkToNPC,
         KillEnemies,
-        GoToLocation
+        GoToLocation,
+        PickUpItem,
     }
 
     [System.Serializable]
@@ -59,6 +61,7 @@ public class MissionManager : MonoBehaviour
         [Multiline(3)]
         public string description;
         public Transform objPos;
+        public QuestItem.ItemType itemType;
         public bool hasShownUI;
     }
 
@@ -167,6 +170,10 @@ public class MissionManager : MonoBehaviour
         //Went to location
         if (currentSubMission.updateStates == UpdateCondition.GoToLocation)
             if (Vector3.Distance(currentSubMission.location.position, player.position) <= acceptDistance)
+                IncreaseMissionUpdateState(currentMissionIndex);
+
+        if (currentSubMission.updateStates == UpdateCondition.PickUpItem)
+            if (inventory.HasItem(currentSubMission.itemType))
                 IncreaseMissionUpdateState(currentMissionIndex);
     }
 
