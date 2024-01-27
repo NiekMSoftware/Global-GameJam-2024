@@ -56,10 +56,16 @@ public class Monkey : MonoBehaviour
     {
         Health -= damage;
         print("Health : " + health + " " + name);
-        if(Health < 0)
+        if(Health < 1)
         {
             Die();
         }
+        OnTakeDamage();
+    }
+
+    protected virtual void OnTakeDamage()
+    {
+
     }
 
     protected virtual void Die()
