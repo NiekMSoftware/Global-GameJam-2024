@@ -10,8 +10,8 @@ public class MediumBurst : Weapon
         currentCD = maxCD;
 
         GameObject instance = Instantiate(prefab, transform.position, transform.rotation);
-
         em = instance.GetComponent<ParticleSystem>();
+        attackDuration = em.startLifetime;
         em.Play();
 
         foreach (GameObject obj in FindObjectsOfType<GameObject>()) 
