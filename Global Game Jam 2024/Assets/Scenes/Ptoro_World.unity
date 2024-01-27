@@ -175,10 +175,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Proto
       objectReference: {fileID: 0}
-    - target: {fileID: 3651983456108340464, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
-      propertyPath: maxCD
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 5302180131253069283, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
       propertyPath: cam
       value: 
@@ -186,8 +182,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1938677397887284144, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1842854728}
   m_SourcePrefab: {fileID: 100100000, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+--- !u!1 &289172980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1938677397887284144, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+  m_PrefabInstance: {fileID: 42301867}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1162191235
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,6 +533,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 616507182949818125, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
   m_PrefabInstance: {fileID: 42301867}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1842854726 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+  m_PrefabInstance: {fileID: 42301867}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289172980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd8f58f3e2edb94aa958647d1220d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1842854728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289172980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2dabf0bc69805f5428d42a106d7876b7, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1842854726}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: OnMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e951dc9d-c45c-4001-b92b-28b14e79562d
+    m_ActionName: gameplay/move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9e871be-2322-4c69-8146-cde9279d3808
+    m_ActionName: gameplay/dodge[/DualSenseGamepadHID/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1ea5cb66-4f1b-4faf-a2b5-4c6fb6a0b764
+    m_ActionName: gameplay/cursor[/Mouse/position,/DualSenseGamepadHID/rightStick]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1901470705
 GameObject:
   m_ObjectHideFlags: 0
