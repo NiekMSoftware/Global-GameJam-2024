@@ -159,6 +159,7 @@ MonoBehaviour:
   maxCD: 1
   currentCD: 1
   happieness: 1
+  attackDuration: 0
   prefab: {fileID: 3158384650979865808, guid: 3674adf523e3d2840b64c4b37e5a948a, type: 3}
 --- !u!114 &107109054
 MonoBehaviour:
@@ -180,6 +181,7 @@ MonoBehaviour:
   player: {fileID: 0}
   weapon: {fileID: 107109053}
   stoppingDistance: 3
+  standstillCooldown: 1
 --- !u!195 &107109055
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1229,6 +1231,11 @@ Transform:
   - {fileID: 799151079}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1347014542 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8586987706238314259, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+  m_PrefabInstance: {fileID: 1623315427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1366563194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3307,6 +3314,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Proto (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: cursor
+      value: 
+      objectReference: {fileID: 1347014542}
+    - target: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1979215337}
     - target: {fileID: 5302180131253069283, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
       propertyPath: cam
       value: 
@@ -3446,6 +3461,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!95 &1979215337 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 993096675845199814, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+  m_PrefabInstance: {fileID: 1623315427}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2131939677
 GameObject:
   m_ObjectHideFlags: 0

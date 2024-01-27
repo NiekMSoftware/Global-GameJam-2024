@@ -17,7 +17,7 @@ public class Player : Monkey
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
 
-
+    [SerializeField] Transform cursor;
     private Vector2 playerDirection;
     
     private bool pressed;
@@ -32,6 +32,8 @@ public class Player : Monkey
 
     private void FixedUpdate()
     {
+        float direction = (cursor.rotation.y < 0) ? 180 : 0;
+        transform.rotation = Quaternion.Euler(0, direction, 0);
 
         if (playerDirection != Vector2.zero)
         {
