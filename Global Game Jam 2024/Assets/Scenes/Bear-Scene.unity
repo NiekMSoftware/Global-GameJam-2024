@@ -2143,7 +2143,7 @@ MonoBehaviour:
   player: {fileID: 0}
   weapon: {fileID: 567974783}
   stoppingDistance: 3
-  enemySprite: {fileID: 0}
+  standstillCooldown: 1
 --- !u!195 &567974785
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2501,6 +2501,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1376377499 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 993096675845199814, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+  m_PrefabInstance: {fileID: 1777027638}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1400995200
 GameObject:
   m_ObjectHideFlags: 0
@@ -3518,6 +3523,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Proto
       objectReference: {fileID: 0}
+    - target: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1376377499}
     - target: {fileID: 5302180131253069283, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
       propertyPath: cam
       value: 
