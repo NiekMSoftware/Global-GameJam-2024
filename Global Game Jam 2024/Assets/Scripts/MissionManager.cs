@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 public class MissionManager : MonoBehaviour
@@ -11,6 +10,8 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Inventory inventory;
     [SerializeField] private float acceptDistance = 5f;
+    [SerializeField] private GameObject questUI;
+    [SerializeField] private TMP_Text questText;
 
     [Header("Mission Update")]
     [SerializeField] private Transform canvas;
@@ -105,6 +106,9 @@ public class MissionManager : MonoBehaviour
             missions[index].updateStates[missions[index].updateStateNum].hasShownUI = true;
             ShowUpdateMission("Mission Update: \n" + missions[index].title + "\n" + missions[index].updateStates[missions[index].updateStateNum].description);
         }
+
+        questUI.SetActive(true);
+        questText.SetText($"{missions[index].title} \n {missions[index].updateStates[missions[index].updateStateNum].description}");
     }
 
     private void IncreaseMissionUpdateState(int index)
@@ -142,30 +146,6 @@ public class MissionManager : MonoBehaviour
         }
 
         MissionUpdateState currentSubMission = currentMission.updateStates[currentMission.updateStateNum];
-
-        ////Killed enemy
-        //else if (currentSubMission.updateStates == UpdateCondition.KillEnemies)
-        //{
-        //    bool isCorrectEnemy = false;
-
-        //    foreach (var enemy in currentSubMission.enemies)
-        //    {
-        //        if (go == enemy)
-        //        {
-        //            isCorrectEnemy = true;
-        //        }
-        //    }
-
-        //    if (isCorrectEnemy)
-        //    {
-        //        currentSubMission.currentEnemiesKilled++;
-
-        //        if (currentSubMission.currentEnemiesKilled >= currentSubMission.enemies.Length)
-        //        {
-        //            IncreaseMissionUpdateState(i);
-        //        }
-        //    }
-        //}
 
         //Went to location
         if (currentSubMission.updateStates == UpdateCondition.GoToLocation)
