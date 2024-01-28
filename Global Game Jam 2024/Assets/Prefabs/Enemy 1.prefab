@@ -135,7 +135,8 @@ GameObject:
   - component: {fileID: 8830137648833324114}
   - component: {fileID: 8817449758477306745}
   - component: {fileID: 817541313639885235}
-  - component: {fileID: 3928684543556787900}
+  - component: {fileID: 941643350454664362}
+  - component: {fileID: 772535936085975941}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -244,8 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a47e01836cccba748b60b4ea079e000d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
-  maxHealth: 5
+  health: 2000
+  maxHealth: 2000
   speed: 5
   monkeyRb: {fileID: 0}
   agent: {fileID: 0}
@@ -275,7 +276,7 @@ MonoBehaviour:
   currentCD: 1
   happieness: 1
   attackDuration: 0
-  audio: {fileID: 3928684543556787900}
+  audio: {fileID: 941643350454664362}
   audioclips:
   - {fileID: 8300000, guid: 24652e7f91d9aa5408496dba4c31d145, type: 3}
   prefab: {fileID: 3158384650979865808, guid: 3674adf523e3d2840b64c4b37e5a948a, type: 3}
@@ -301,7 +302,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 1652b0d1928b8484f93cf6d19d5dc5b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -376,7 +377,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -401,7 +402,7 @@ MonoBehaviour:
   currentCD: 0
   happieness: 0
   attackDuration: 0
-  audio: {fileID: 3928684543556787900}
+  audio: {fileID: 941643350454664362}
   audioclips:
   - {fileID: 8300000, guid: 0c64674e7add68a459e5da2991620c27, type: 3}
   - {fileID: 8300000, guid: 5c884f6c272bbd443afbc1bc78a20703, type: 3}
@@ -409,6 +410,8 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 1
+  animator: {fileID: 772535936085975941}
+  crying: {fileID: 7400000, guid: 97678201f7dcdd64b8ba06cd57e8d8f2, type: 2}
 --- !u!58 &817541313639885235
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -444,7 +447,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!82 &3928684543556787900
+--- !u!82 &941643350454664362
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -540,6 +543,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &772535936085975941
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204004126496730595}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b3d4077bb65a92f42a5d2382d56ad750, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6269879164697715725
 GameObject:
   m_ObjectHideFlags: 0

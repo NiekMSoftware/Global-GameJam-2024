@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1117106466610745536}
   - component: {fileID: 8165595836049031988}
   - component: {fileID: 4457365297871576848}
-  - component: {fileID: 6747614851849093806}
+  - component: {fileID: 482485809175208799}
   m_Layer: 0
   m_Name: Player_Proto
   m_TagString: Untagged
@@ -38,7 +38,6 @@ Transform:
   m_Children:
   - {fileID: 8586987706238314259}
   - {fileID: 2726604694765234731}
-  - {fileID: 6456919391097059942}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2266500255419691604
@@ -81,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -663935217
   m_SortingLayer: 1
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: -973238967, guid: 4462b0d4d9ef7184bb2f1937e87379ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -114,13 +113,10 @@ MonoBehaviour:
   animator: {fileID: 8165595836049031988}
   Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
   Walking: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
-  dodge: {fileID: 7400000, guid: 4a3118f06a5d2954484c7ae6f396d80a, type: 2}
-  bananaSprite: {fileID: 4490079411203796956}
   dust: {fileID: 904087465123872426}
-  audio: {fileID: 6747614851849093806}
+  audio: {fileID: 482485809175208799}
   immune: 0
   stunned: 0
-  playerDirection: {x: 0, y: 0}
   cursor: {fileID: 8586987706238314259}
   healthSlider: {fileID: 0}
 --- !u!50 &8769535165075297458
@@ -282,7 +278,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!82 &6747614851849093806
+--- !u!82 &482485809175208799
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -503,7 +499,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4831165353135740172}
   serializedVersion: 8
-  lengthInSec: 0.3
+  lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -685,7 +681,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.21107598, g: 0.3509434, b: 0.09203984, a: 1}
+      maxColor: {r: 0.55345905, g: 0.55345905, b: 0.55345905, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5259,7 +5255,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5305,7 +5301,7 @@ GameObject:
   - component: {fileID: 2137675967571751918}
   - component: {fileID: 3887570026417473917}
   - component: {fileID: 5302180131253069283}
-  - component: {fileID: 1047625576147942226}
+  - component: {fileID: 3875158023124422399}
   m_Layer: 0
   m_Name: PewPew
   m_TagString: Untagged
@@ -5346,7 +5342,7 @@ MonoBehaviour:
   currentCD: 0
   happieness: 50
   attackDuration: 0
-  audio: {fileID: 1047625576147942226}
+  audio: {fileID: 3875158023124422399}
   audioclips:
   - {fileID: 8300000, guid: 24652e7f91d9aa5408496dba4c31d145, type: 3}
   prefab: {fileID: 3158384650979865808, guid: 3674adf523e3d2840b64c4b37e5a948a, type: 3}
@@ -5368,7 +5364,7 @@ MonoBehaviour:
   currentCD: 0.6
   happieness: 25
   attackDuration: 0
-  audio: {fileID: 1047625576147942226}
+  audio: {fileID: 3875158023124422399}
   audioclips:
   - {fileID: 8300000, guid: 7147bfa53bd088048993ab221fbd2e53, type: 3}
   body: {fileID: 0}
@@ -5392,7 +5388,7 @@ MonoBehaviour:
   currentCD: 0
   happieness: 75
   attackDuration: 0
-  audio: {fileID: 1047625576147942226}
+  audio: {fileID: 3875158023124422399}
   audioclips:
   - {fileID: 8300000, guid: 7147bfa53bd088048993ab221fbd2e53, type: 3}
   attack: {fileID: 6463894519551203193, guid: c3bd460836b2e1f40b22e80fcff29783, type: 3}
@@ -5416,12 +5412,12 @@ MonoBehaviour:
   laughManager: {fileID: 0}
   currentWeaponNum: 0
   unlockedWeapon: 2
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 3651983456108340464}
   cam: {fileID: 0}
   maxGlobalCd: 1
   oldWeapon: 0
   stunned: 0
---- !u!82 &1047625576147942226
+--- !u!82 &3875158023124422399
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5589,7 +5585,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
