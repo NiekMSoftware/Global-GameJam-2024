@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -663935217
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -973238967, guid: 4462b0d4d9ef7184bb2f1937e87379ef, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -113,10 +113,12 @@ MonoBehaviour:
   animator: {fileID: 8165595836049031988}
   Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
   Walking: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
+  dodge: {fileID: 7400000, guid: 4a3118f06a5d2954484c7ae6f396d80a, type: 2}
   dust: {fileID: 904087465123872426}
   audio: {fileID: 6437805306918138730}
   immune: 0
   stunned: 0
+  playerDirection: {x: 0, y: 0}
   cursor: {fileID: 8586987706238314259}
   healthSlider: {fileID: 0}
 --- !u!50 &8769535165075297458
@@ -415,7 +417,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4831165353135740172}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 0.3
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5171,7 +5173,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -5503,7 +5505,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
