@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -16,7 +17,12 @@ public class Player : Monkey
     [SerializeField] AnimationClip Walking;
     [SerializeField] ParticleSystem dust;
 
-    private bool immune = false;
+    [SerializeField] AudioSource audio;
+    float audioCd;
+
+    //private bool immune = false;
+    public bool immune = false;
+    public bool stunned = false;
 
     private Vector2 playerDirection;
     
@@ -28,6 +34,7 @@ public class Player : Monkey
 
     private void Awake()
     {
+        audio = GetComponent<AudioSource>();
         monkeyRb = GetComponent<Rigidbody2D>();
 
         if (healthSlider == null)
@@ -45,22 +52,31 @@ public class Player : Monkey
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
 
+        audioCd -= Time.deltaTime;
+
         if (playerDirection != Vector2.zero)
+        if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
             animator.Play("Running");
-
+            if (audioCd < 0)
+            {
+                audio.Play();
+                audioCd = audio.clip.length;
+            }
             // Apply force in the specified direction
             monkeyRb.AddForce(playerDirection * speed);
         }
         else
         {
+            audio.Stop();
             animator.Play("Idle");
         }
 
-        monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
+        if (!stunned)
+            monkeyRb.velocity = Vector2.ClampMagnitude(monkeyRb.velocity, speed);
         
-        if (pressed && !isOnCooldown && monkeyRb.velocity.magnitude > 0)
+        if (pressed && !isOnCooldown && monkeyRb.velocity.magnitude > 0 && !stunned)
         {
             Dodge();
         }
@@ -105,7 +121,11 @@ public class Player : Monkey
 
     public override void TakeDamage(float damage)
     {
-        if (!immune) base.TakeDamage(damage);
+        if (!immune)
+        {
+            print("take damage");
+            base.TakeDamage(damage);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

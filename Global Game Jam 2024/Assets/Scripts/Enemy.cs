@@ -16,6 +16,9 @@ public class Enemy : Monkey
     [SerializeField] private GameObject barBackground;
     [SerializeField] private Sprite deadSprite;
     [SerializeField] private SpriteRenderer renderer;
+
+    private MissionManager missionManager;
+
     private bool isDead = false;
     Vector3 healthBarFullSize;
 
@@ -45,6 +48,8 @@ public class Enemy : Monkey
         }
         healthBarFullSize = healthBar.transform.localScale;
         barBackground.transform.localScale = healthBarFullSize;
+
+        missionManager = FindObjectOfType<MissionManager>();
     }
 
     private void Update()
@@ -157,6 +162,7 @@ public class Enemy : Monkey
         agent.speed = 0;
         agent.velocity = Vector3.zero;
         renderer.sprite = deadSprite;
+        missionManager.CuredEnemy(this);
         Debug.Log("Enemy Died");
     }
 }

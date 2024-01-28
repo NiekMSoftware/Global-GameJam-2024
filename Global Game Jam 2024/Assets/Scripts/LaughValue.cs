@@ -6,6 +6,8 @@ public class LaughValue : MonoBehaviour
     [SerializeField] private float maxLaughValue;
     [SerializeField] private float laughDecreaseAmountPerSecond;
     [SerializeField] private float stunTime;
+    [SerializeField] private Player player;
+    [SerializeField] private WeaponManager weaponManager;
 
     private float stunTimer;
 
@@ -19,11 +21,6 @@ public class LaughValue : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            laughValue += 3;
-        }
-
         switch (state)
         {
             case States.Idle:
@@ -34,7 +31,9 @@ public class LaughValue : MonoBehaviour
                 {
                     state = States.Stunned;
                     laughValue = maxLaughValue;
-                    print("stun enemy");
+                    player.stunned = true;
+                    weaponManager.stunned = true;
+                    print("stun player");
                 }
                 break;
 
@@ -43,12 +42,18 @@ public class LaughValue : MonoBehaviour
 
                 if (stunTimer <= 0)
                 {
+                    player.stunned = false;
+                    weaponManager.stunned = false;
                     stunTimer = stunTime;
                     state = States.Idle;
                 }
                 break;
         }
+    }
 
+    public void AddAmount(float amount)
+    {
+        laughValue += amount;
     }
 
     public States GetCurrentState() => state;
