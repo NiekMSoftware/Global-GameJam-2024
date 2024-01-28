@@ -20,6 +20,7 @@ public class Player : Monkey
     [SerializeField] AudioSource audio;
     float audioCd;
 
+    //private bool immune = false;
     public bool immune = false;
     public bool stunned = false;
 
