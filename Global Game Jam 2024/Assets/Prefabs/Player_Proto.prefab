@@ -112,8 +112,13 @@ MonoBehaviour:
   animator: {fileID: 8165595836049031988}
   Idle: {fileID: 7400000, guid: 370b5712189966a49b635d551cf14b44, type: 2}
   Walking: {fileID: 7400000, guid: 348f2f7f74787db4a852fadc3b86844b, type: 2}
+  dodge: {fileID: 7400000, guid: 4a3118f06a5d2954484c7ae6f396d80a, type: 2}
   dust: {fileID: 904087465123872426}
   cursor: {fileID: 5025651371497144936}
+  audio: {fileID: 6437805306918138730}
+  immune: 0
+  stunned: 0
+  playerDirection: {x: 0, y: 0}
   healthSlider: {fileID: 0}
 --- !u!50 &8769535165075297458
 Rigidbody2D:
