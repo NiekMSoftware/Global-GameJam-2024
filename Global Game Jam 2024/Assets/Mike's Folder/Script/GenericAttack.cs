@@ -13,9 +13,12 @@ public class GenericAttack : Weapon
     {
         currentCD = maxCD;
 
-        audio.clip = audioclips[0];
+        if (audio)
+        {
+            audio.clip = audioclips[0];
 
-        audio.Play();
+            audio?.Play();
+        }
 
         GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, Quaternion.identity);
 

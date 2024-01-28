@@ -16,7 +16,7 @@ public class LongRangeAttack : Weapon
 
         audio.clip = audioclips[0];
 
-        audio.Play();
+        audio?.Play();
 
        // anim.Play("haah");
         GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, Quaternion.identity);

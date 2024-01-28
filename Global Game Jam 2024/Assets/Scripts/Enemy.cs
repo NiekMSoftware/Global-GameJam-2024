@@ -17,6 +17,8 @@ public class Enemy : Monkey
     [SerializeField] private Sprite deadSprite;
     [SerializeField] private SpriteRenderer renderer;
 
+    public Room room;
+
     private MissionManager missionManager;
 
     private bool isDead = false;
@@ -163,6 +165,7 @@ public class Enemy : Monkey
         agent.velocity = Vector3.zero;
         renderer.sprite = deadSprite;
         missionManager.CuredEnemy(this);
+        room?.RemoveEnemy(this);
         Debug.Log("Enemy Died");
     }
 }

@@ -152,21 +152,14 @@ public class Player : Monkey
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.CompareTag("BossAttack"))
-        {
-            if (collision.transform.TryGetComponent(out Rock rock))
-                TakeDamage(rock.GetDamage());
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("BossAttack"))
         {
             if (collision.TryGetComponent(out FireRing fireRing))
                 TakeDamage(fireRing.GetDamage());
+            else if (collision.transform.TryGetComponent(out Rock rock))
+                TakeDamage(rock.GetDamage());
         }
     }
     public void CreateDust()
