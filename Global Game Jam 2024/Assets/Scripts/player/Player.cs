@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -16,24 +15,24 @@ public class Player : Monkey
     [SerializeField] Animator animator;
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
-    [SerializeField] ParticleSystem dust;
+    [SerializeField] AnimationClip dodge;
+    [SerializeField] SpriteRenderer banana;
 
+    [SerializeField] ParticleSystem dust;
     [SerializeField] AudioSource audio;
     float audioCd;
 
-
+    float dodgeDuration;
     
 
     //private bool immune = false;
     public bool immune = false;
     public bool stunned = false;
-    bool isAnimatingDodge = false;
 
     private Vector2 playerDirection;
     
     private bool pressed;
     private bool isOnCooldown = false;
-    bool isDodging = false;
 
     [SerializeField] private Transform cursor;
     [SerializeField] private Slider healthSlider;
@@ -56,9 +55,8 @@ public class Player : Monkey
 
     private void Update()
     {
-        print(pressed);
         if (!pressed)
-        { 
+        {
             playerDirection = Move();
             animator.ResetTrigger("Dodge");
             animator.SetTrigger("Run");
@@ -75,24 +73,29 @@ public class Player : Monkey
                 playerDirection = Vector2.zero;
             }
         }
-       
+
     }
 
     private void FixedUpdate()
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
+        banana.flipX = (cursor.rotation.y < 0) ? true : false;
 
         audioCd -= Time.deltaTime;
         dodgeDuration -= Time.deltaTime;
       //  if (playerDirection != Vector2.zero)
 
 
-        if (playerDirection != Vector2.zero)
-            animator.Play("Running");
         if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
-            
+
+            if (dodgeDuration <= 0)
+            {
+                animator.ResetTrigger("Dodge");
+                animator.SetTrigger("Run");
+            }
+
             if (audioCd < 0)
             {
                 audio.Play();
@@ -133,6 +136,7 @@ public class Player : Monkey
     {
         if (pressed && !isOnCooldown)
         {
+            dodgeDuration = dodge.length;
             print("YEEt");
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
