@@ -94,7 +94,6 @@ public class Player : Monkey
     {
         if (pressed && !isOnCooldown)
         {
-            print("YEEt");
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
             isOnCooldown = true;
