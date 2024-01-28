@@ -20,6 +20,9 @@ public class Player : Monkey
     [SerializeField] AudioSource audio;
     float audioCd;
 
+
+    
+
     //private bool immune = false;
     public bool immune = false;
     public bool stunned = false;
@@ -55,10 +58,11 @@ public class Player : Monkey
         audioCd -= Time.deltaTime;
 
         if (playerDirection != Vector2.zero)
+            animator.Play("Running");
         if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
-            animator.Play("Running");
+            
             if (audioCd < 0)
             {
                 audio.Play();
@@ -69,8 +73,9 @@ public class Player : Monkey
         }
         else
         {
-            audio.Stop();
             animator.Play("Idle");
+                audio.Stop();
+            
         }
 
         if (!stunned)
