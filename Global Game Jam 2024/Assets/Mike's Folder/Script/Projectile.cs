@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
                     }
                 }
             }
-            print("hit: " + collision);
+
             Destroy(gameObject);
         }
     }

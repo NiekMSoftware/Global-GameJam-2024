@@ -13,6 +13,7 @@ public class EndBoss : Enemy
     [SerializeField] private Color stunColor;
     [SerializeField] private int amountOfAttacksToStun;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private AudioSource LAUGH;
     //[SerializeField] private 
     private Animator animator;
 
@@ -163,7 +164,7 @@ public class EndBoss : Enemy
 
     public void AttackDone()
     {
-        if (state != States.Stunned)
+        if (state != States.Stunned && state != States.Dead)
             state = States.Idle;
     }
 
@@ -194,6 +195,8 @@ public class EndBoss : Enemy
     {
         state = States.Dead;
         laughParticle.SetActive(true);
+        LAUGH.loop = true;
+        LAUGH.Play();
     }
 
     public override void TakeDamage(float damage)
