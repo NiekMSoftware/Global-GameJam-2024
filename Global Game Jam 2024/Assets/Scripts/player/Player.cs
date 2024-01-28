@@ -15,6 +15,10 @@ public class Player : Monkey
     [SerializeField] Animator animator;
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
+    [SerializeField] AnimationClip dodge;
+
+    float dodgeDuration;
+
     [SerializeField] ParticleSystem dust;
 
     [SerializeField] AudioSource audio;
@@ -24,7 +28,7 @@ public class Player : Monkey
     public bool immune = false;
     public bool stunned = false;
 
-    private Vector2 playerDirection;
+    [SerializeField] private Vector2 playerDirection;
     
     private bool pressed;
     private bool isOnCooldown = false;
@@ -53,12 +57,21 @@ public class Player : Monkey
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
 
         audioCd -= Time.deltaTime;
-
-        if (playerDirection != Vector2.zero)
+        dodgeDuration -= Time.deltaTime;
+      //  if (playerDirection != Vector2.zero)
         if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
-            animator.Play("Running");
+            
+            if (dodgeDuration <= 0)
+            {
+                    animator.ResetTrigger("Dodge");
+                    animator.SetTrigger("Run");
+            }
+            
+
+            //animator.Play("Running");
+
             if (audioCd < 0)
             {
                 audio.Play();
@@ -89,6 +102,9 @@ public class Player : Monkey
     {
         if (pressed && !isOnCooldown)
         {
+            dodgeDuration = dodge.length;
+            animator.ResetTrigger("Run");
+            animator.SetTrigger("Dodge");
             print("YEEt");
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
