@@ -364,6 +364,10 @@ PrefabInstance:
       value: Player_Proto
       objectReference: {fileID: 0}
     - target: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
+      propertyPath: dodgeForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844846775914682708, guid: 2c3f56d7fc79b03439bcc3d932b4f9f4, type: 3}
       propertyPath: bananaSprite
       value: 
       objectReference: {fileID: 985011209}

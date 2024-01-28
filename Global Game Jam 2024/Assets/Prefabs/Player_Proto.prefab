@@ -450,7 +450,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -663935217
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5397,8 +5397,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7147bfa53bd088048993ab221fbd2e53, type: 3}
   attack: {fileID: 6463894519551203193, guid: c3bd460836b2e1f40b22e80fcff29783, type: 3}
   bulletSpeed: 20
-  anim: {fileID: 0}
-  haha: {fileID: 0}
 --- !u!114 &5302180131253069283
 MonoBehaviour:
   m_ObjectHideFlags: 0

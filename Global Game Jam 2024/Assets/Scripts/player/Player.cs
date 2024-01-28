@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -29,11 +30,13 @@ public class Player : Monkey
     //private bool immune = false;
     public bool immune = false;
     public bool stunned = false;
+    bool isAnimatingDodge = false;
 
     [SerializeField] private Vector2 playerDirection;
     
     private bool pressed;
     private bool isOnCooldown = false;
+    bool isDodging = false;
 
     [SerializeField] private Transform cursor;
     [SerializeField] private Slider healthSlider;
@@ -54,6 +57,30 @@ public class Player : Monkey
         cursor = transform.GetChild(0);
     }
 
+    private void Update()
+    {
+        print(pressed);
+        if (!pressed)
+        { 
+            playerDirection = Move();
+            animator.ResetTrigger("Dodge");
+            animator.SetTrigger("Run");
+        }
+        else
+        {
+            if (dodgeDuration > 0)
+            {
+                animator.ResetTrigger("Run");
+                animator.SetTrigger("Dodge");
+            }
+            if (dodgeDuration <= 0.3)
+            {
+                playerDirection = Vector2.zero;
+            }
+        }
+       
+    }
+
     private void FixedUpdate()
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
@@ -62,13 +89,6 @@ public class Player : Monkey
         audioCd -= Time.deltaTime;
         dodgeDuration -= Time.deltaTime;
       //  if (playerDirection != Vector2.zero)
-
-        if (immune)
-        {
-            dodgeDuration = dodge.length;
-            animator.ResetTrigger("Run");
-            animator.SetTrigger("Dodge");
-        }
 
         if (playerDirection != Vector2.zero && !stunned)
         {
@@ -91,7 +111,7 @@ public class Player : Monkey
             // Apply force in the specified direction
             monkeyRb.AddForce(playerDirection * speed);
         }
-        else
+        else if (dodgeDuration <= 0)
         {
             audio.Stop();
             animator.Play("Idle");
@@ -105,6 +125,15 @@ public class Player : Monkey
             Dodge();
         }
     }
+
+    protected override Vector2 Move()
+    {
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+
+        return new Vector2(x, y);
+    }
+
     protected override void OnTakeDamage()
     {
         healthSlider.value = Health;
@@ -122,15 +151,19 @@ public class Player : Monkey
         }
     }
 
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        playerDirection = ctx.ReadValue<Vector2>();
-    }
+    //public void OnMove(InputAction.CallbackContext ctx)
+    //{
+    //    if (!isDodging)
+    //        playerDirection = ctx.ReadValue<Vector2>();
+    //    else playerDirection = Vector2.zero;
+    //}
 
     public void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() > 0 && playerDirection.magnitude > 0)
+        if (ctx.ReadValue<float>() > 0 && playerDirection.magnitude > 0 && dodgeDuration < 0)
         {
+            animator.StopPlayback();
+            dodgeDuration = dodge.length;
             pressed = true;
         }
     }
@@ -152,14 +185,21 @@ public class Player : Monkey
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("BossAttack"))
+        {
+            if (collision.transform.TryGetComponent(out Rock rock))
+                TakeDamage(rock.GetDamage());
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("BossAttack"))
         {
             if (collision.TryGetComponent(out FireRing fireRing))
                 TakeDamage(fireRing.GetDamage());
-            else if (collision.transform.TryGetComponent(out Rock rock))
-                TakeDamage(rock.GetDamage());
         }
     }
     public void CreateDust()
