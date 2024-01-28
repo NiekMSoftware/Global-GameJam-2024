@@ -7,8 +7,8 @@ public class LongRangeAttack : Weapon
 {
     [SerializeField] GameObject attack;
     [SerializeField] float bulletSpeed;
-    [SerializeField] Animator anim;
-    [SerializeField] AnimationClip haha;
+    //[SerializeField] Animator anim;
+   // [SerializeField] AnimationClip haha;
 
     public override void Attack()
     {
@@ -18,7 +18,7 @@ public class LongRangeAttack : Weapon
 
         audio.Play();
 
-        anim.Play("haah");
+       // anim.Play("haah");
         GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, Quaternion.identity);
         if (currentAttack.TryGetComponent(out Rigidbody2D rb))
         {

@@ -62,6 +62,14 @@ public class Player : Monkey
         audioCd -= Time.deltaTime;
         dodgeDuration -= Time.deltaTime;
       //  if (playerDirection != Vector2.zero)
+
+        if (immune)
+        {
+            dodgeDuration = dodge.length;
+            animator.ResetTrigger("Run");
+            animator.SetTrigger("Dodge");
+        }
+
         if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
@@ -105,9 +113,6 @@ public class Player : Monkey
     {
         if (pressed && !isOnCooldown)
         {
-            dodgeDuration = dodge.length;
-            animator.ResetTrigger("Run");
-            animator.SetTrigger("Dodge");
             print("YEEt");
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
