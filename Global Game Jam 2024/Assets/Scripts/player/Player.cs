@@ -17,6 +17,8 @@ public class Player : Monkey
     [SerializeField] AnimationClip Walking;
     [SerializeField] AnimationClip dodge;
 
+    [SerializeField] SpriteRenderer bananaSprite;
+
     float dodgeDuration;
 
     [SerializeField] ParticleSystem dust;
@@ -55,6 +57,7 @@ public class Player : Monkey
     private void FixedUpdate()
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
+        bananaSprite.flipX = (cursor.rotation.y < 0) ? true : false;
 
         audioCd -= Time.deltaTime;
         dodgeDuration -= Time.deltaTime;
