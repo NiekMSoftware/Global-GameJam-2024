@@ -12,12 +12,26 @@ public class CryAttack : Weapon
     {
         currentCD = maxCD;
 
+        audio.clip = audioclips[0];
+
+        audio.Play();
+
+        Invoke("UseAttack", audioclips[0].length);
+
+    }
+
+    void UseAttack()
+    {
+        audio.clip = audioclips[1];
+
+        audio.Play();
+
         hit = Physics2D.Raycast(transform.position + transform.forward, transform.forward, Mathf.Infinity, layer);
 
         if (hit.collider != null)
         {
             print(hit.collider.name);
-            if (hit.transform.TryGetComponent(out Monkey monkey)) 
+            if (hit.transform.TryGetComponent(out Monkey monkey))
             {
                 monkey.TakeDamage(dmg);
             }

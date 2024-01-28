@@ -13,6 +13,11 @@ public class LongRangeAttack : Weapon
     public override void Attack()
     {
         currentCD = maxCD;
+
+        audio.clip = audioclips[0];
+
+        audio.Play();
+
         anim.Play("haah");
         GameObject currentAttack = Instantiate(attack, transform.position + transform.forward, Quaternion.identity);
         if (currentAttack.TryGetComponent(out Rigidbody2D rb))
