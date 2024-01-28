@@ -36,6 +36,7 @@ public class Player : Monkey
 
     [SerializeField] private Transform cursor;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private SceneLoader sceneLoader;
 
     private void Awake()
     {
@@ -162,7 +163,6 @@ public class Player : Monkey
             pressed = true;
         }
     }
-
     IEnumerator DodgeCooldown()
     {
         yield return new WaitForSeconds(timeUntilNext);
@@ -193,5 +193,9 @@ public class Player : Monkey
     public void CreateDust()
     {
         dust.Play();
+    }
+    protected override void Die()
+    {
+        SceneLoader.LoadScene("Main-Menu");
     }
 }

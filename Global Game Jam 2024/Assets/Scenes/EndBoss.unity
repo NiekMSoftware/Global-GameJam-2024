@@ -240,6 +240,7 @@ MonoBehaviour:
   renderer: {fileID: 0}
   laughParticle: {fileID: 2063780103}
   room: {fileID: 0}
+  isDead: 0
   animator: {fileID: 0}
   fireRing: {fileID: 780411379637209210, guid: 72a38cff4497d374a8a0234f1b9dc9b8, type: 3}
   rock: {fileID: 4246057234693204834, guid: 6cb89a43f1af94b4b9be00c089c16077, type: 3}
@@ -902,7 +903,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.27044016, g: 0.27044016, b: 0.27044016, a: 1}
   m_FlipX: 0
@@ -76774,7 +76775,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0

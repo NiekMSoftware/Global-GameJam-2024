@@ -197,11 +197,19 @@ public class EndBoss : Enemy
         laughParticle.SetActive(true);
         LAUGH.loop = true;
         LAUGH.Play();
+
+        StartCoroutine(LoadMainMenu());
     }
 
     public override void TakeDamage(float damage)
     {
         if (state == States.Stunned)
             base.TakeDamage(damage);
+    }
+
+    IEnumerator LoadMainMenu()
+    {
+        yield return new WaitForSeconds(5);
+        SceneLoader.LoadScene("Main-Menu");
     }
 }

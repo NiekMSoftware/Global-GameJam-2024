@@ -29,11 +29,11 @@ public class LaughValue : MonoBehaviour
 
                 if (laughValue >= maxLaughValue)
                 {
-                    state = States.Stunned;
-                    laughValue = 0;
-                    player.stunned = true;
-                    weaponManager.stunned = true;
-                    print("stun player");
+                    //state = States.Stunned;
+                    //laughValue = 0;
+                    //player.stunned = true;
+                    //weaponManager.stunned = true;
+                    //print("stun player");
                 }
                 break;
 

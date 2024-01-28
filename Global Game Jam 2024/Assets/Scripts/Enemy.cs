@@ -21,7 +21,7 @@ public class Enemy : Monkey
 
     private MissionManager missionManager;
 
-    private bool isDead = false;
+    public bool isDead = false;
     Vector3 healthBarFullSize;
 
     [SerializeField] private Animator animator;
@@ -53,8 +53,8 @@ public class Enemy : Monkey
 
         missionManager = FindObjectOfType<MissionManager>();
 
-        //laughParticle = transform.GetChild(0).gameObject;
-        //laughParticle.SetActive(false);
+        laughParticle = transform.GetChild(0).gameObject;
+        laughParticle.SetActive(false);
     }
 
     private void Update()

@@ -47,6 +47,7 @@ public class Projectile : MonoBehaviour
             {
                 if (collision.gameObject.TryGetComponent(out Monkey monkey))
                 {
+                    Debug.Log("Monkey take damage");
                     monkey.TakeDamage(dmg);
                 }
                 else if (collision.transform.parent != null)
