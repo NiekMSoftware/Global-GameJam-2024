@@ -56,7 +56,6 @@ public class Monkey : MonoBehaviour
     public virtual void TakeDamage(float damage)
     {
         Health -= damage;
-        print("Health : " + health + " " + name);
         if(Health < 1)
         {
             Die();

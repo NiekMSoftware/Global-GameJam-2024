@@ -15,7 +15,7 @@ public class Enemy : Monkey
     [SerializeField] private GameObject barBackground;
     [SerializeField] private Sprite deadSprite;
     [SerializeField] private SpriteRenderer renderer;
-    [SerializeField] private GameObject laughParticle;
+    [SerializeField] protected GameObject laughParticle;
 
     public Room room;
 
@@ -53,8 +53,8 @@ public class Enemy : Monkey
 
         missionManager = FindObjectOfType<MissionManager>();
 
-        laughParticle = transform.GetChild(0).gameObject;
-        laughParticle.SetActive(false);
+        //laughParticle = transform.GetChild(0).gameObject;
+        //laughParticle.SetActive(false);
     }
 
     private void Update()

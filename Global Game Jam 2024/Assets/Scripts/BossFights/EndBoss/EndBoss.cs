@@ -13,7 +13,7 @@ public class EndBoss : Enemy
     [SerializeField] private Color stunColor;
     [SerializeField] private int amountOfAttacksToStun;
     [SerializeField] private SpriteRenderer spriteRenderer;
-
+    //[SerializeField] private 
     private Animator animator;
 
     private int amountOfAttacks = 0;
@@ -193,6 +193,7 @@ public class EndBoss : Enemy
     protected override void Die()
     {
         state = States.Dead;
+        laughParticle.SetActive(true);
     }
 
     public override void TakeDamage(float damage)

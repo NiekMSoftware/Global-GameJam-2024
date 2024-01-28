@@ -50,10 +50,11 @@ public class MediumBurst : Weapon
                         {
                             float value = Vector3.Angle(-transform.forward, (monkey.transform.position - transform.position.normalized));
 
+                            monkey.TakeDamage(dmg);
 
-                            if (Mathf.Abs(value) < em.shape.angle * 1.1f)
+                            if (Mathf.Abs(value) < em.shape.angle * 1.5f)
                             {
-                                monkey.TakeDamage(dmg);
+
                             }
                         }
                     }
