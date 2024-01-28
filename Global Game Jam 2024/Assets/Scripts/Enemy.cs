@@ -171,6 +171,7 @@ public class Enemy : Monkey
             renderer.sprite = deadSprite;
             missionManager.CuredEnemy(this);
             room?.RemoveEnemy(this);
+            animator.SetBool("isDead", true);
             Debug.Log("Enemy Died");
         }
     }
