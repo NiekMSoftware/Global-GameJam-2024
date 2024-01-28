@@ -15,22 +15,19 @@ public class Player : Monkey
     [SerializeField] Animator animator;
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
-    [SerializeField] AnimationClip dodge;
-
-    [SerializeField] SpriteRenderer bananaSprite;
-
-    float dodgeDuration;
-
     [SerializeField] ParticleSystem dust;
 
     [SerializeField] AudioSource audio;
     float audioCd;
 
+
+    
+
     //private bool immune = false;
     public bool immune = false;
     public bool stunned = false;
 
-    [SerializeField] private Vector2 playerDirection;
+    private Vector2 playerDirection;
     
     private bool pressed;
     private bool isOnCooldown = false;
@@ -57,32 +54,15 @@ public class Player : Monkey
     private void FixedUpdate()
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
-        bananaSprite.flipX = (cursor.rotation.y < 0) ? true : false;
 
         audioCd -= Time.deltaTime;
-        dodgeDuration -= Time.deltaTime;
-      //  if (playerDirection != Vector2.zero)
 
-        if (immune)
-        {
-            dodgeDuration = dodge.length;
-            animator.ResetTrigger("Run");
-            animator.SetTrigger("Dodge");
-        }
-
+        if (playerDirection != Vector2.zero)
+            animator.Play("Running");
         if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
             
-            if (dodgeDuration <= 0)
-            {
-                    animator.ResetTrigger("Dodge");
-                    animator.SetTrigger("Run");
-            }
-            
-
-            //animator.Play("Running");
-
             if (audioCd < 0)
             {
                 audio.Play();
@@ -93,8 +73,9 @@ public class Player : Monkey
         }
         else
         {
-            audio.Stop();
             animator.Play("Idle");
+                audio.Stop();
+            
         }
 
         if (!stunned)
@@ -152,14 +133,21 @@ public class Player : Monkey
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("BossAttack"))
+        {
+            if (collision.transform.TryGetComponent(out Rock rock))
+                TakeDamage(rock.GetDamage());
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("BossAttack"))
         {
             if (collision.TryGetComponent(out FireRing fireRing))
                 TakeDamage(fireRing.GetDamage());
-            else if (collision.transform.TryGetComponent(out Rock rock))
-                TakeDamage(rock.GetDamage());
         }
     }
     public void CreateDust()

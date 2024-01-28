@@ -43,6 +43,7 @@ public class LaughValue : MonoBehaviour
                 if (stunTimer <= 0)
                 {
                     player.stunned = false;
+
                     weaponManager.stunned = false;
                     stunTimer = stunTime;
                     state = States.Idle;
