@@ -15,6 +15,7 @@ public class Enemy : Monkey
     [SerializeField] private GameObject barBackground;
     [SerializeField] private Sprite deadSprite;
     [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private GameObject laughParticle;
 
     public Room room;
 
@@ -51,6 +52,9 @@ public class Enemy : Monkey
         barBackground.transform.localScale = healthBarFullSize;
 
         missionManager = FindObjectOfType<MissionManager>();
+
+        laughParticle = transform.GetChild(0).gameObject;
+        laughParticle.SetActive(false);
     }
 
     private void Update()
@@ -171,6 +175,7 @@ public class Enemy : Monkey
             missionManager.CuredEnemy(this);
             room?.RemoveEnemy(this);
             animator.SetBool("isDead", true);
+            laughParticle.SetActive(true);
             Debug.Log("Enemy Died");
         }
     }
