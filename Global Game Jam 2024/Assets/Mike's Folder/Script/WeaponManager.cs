@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,6 +47,30 @@ public class WeaponManager : MonoBehaviour
         HandleWeaponSelection();
 
         // Rest of your existing code...
+
+        Vector3 mousePosition = cam.ScreenToWorldPoint(
+        new Vector3(Input.mousePosition.x, Input.mousePosition.y, cam.transform.position.z));
+
+        mousePosition.x -= transform.position.x;
+        mousePosition.y -= transform.position.y;
+
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.currentCD -= Time.deltaTime;
+        }
+        transform.rotation = Quaternion.LookRotation(new Vector3(mousePosition.x, mousePosition.y, 0).normalized);
+
+        if (Input.GetMouseButton(0) && currentWeapon.currentCD < 0 && globalCD < 0 && !stunned)
+        {
+            laughManager.AddAmount(currentWeapon.happieness);
+            currentWeapon.Attack();
+            if (oldWeapon != currentWeaponNum)
+            {
+                globalCD = maxGlobalCd;
+            }
+        }
+
+
 
         oldWeapon = currentWeaponNum;
     }

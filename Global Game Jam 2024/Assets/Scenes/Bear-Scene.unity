@@ -177,13 +177,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 884662383792795881, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
+      propertyPath: m_Name
+      value: QuestName-Background-Outline
+      objectReference: {fileID: 0}
     - target: {fileID: 2565181516615386654, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2565181516615386654, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685347532749779810, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
+      propertyPath: m_Name
+      value: QuestName-Background
       objectReference: {fileID: 0}
     - target: {fileID: 2749917328259886345, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
       propertyPath: m_Pivot.x
@@ -265,13 +273,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3125315903963712271, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
+      propertyPath: m_Name
+      value: Quest-Background-Outline
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580972216728998906, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
+      propertyPath: m_Name
+      value: Quest-Background
+      objectReference: {fileID: 0}
     - target: {fileID: 6940006328613618484, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
       propertyPath: m_Name
       value: Canvas (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6940006328613618484, guid: 61f1874d582095d439d2921e03e6c4b7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -38472,7 +38488,7 @@ PrefabInstance:
     - target: {fileID: 4856650297326447721, guid: 6eadb75eb6a8dff4eaeb0ad6a090498f, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1781234110, guid: f204ad11668c8724b9055cc1aabeafe3, type: 3}
+      objectReference: {fileID: 21300000, guid: 215288e5aa6f9d4468b6450bb6893edf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

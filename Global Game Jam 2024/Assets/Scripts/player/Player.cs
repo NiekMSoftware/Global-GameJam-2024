@@ -15,12 +15,14 @@ public class Player : Monkey
     [SerializeField] Animator animator;
     [SerializeField] AnimationClip Idle;
     [SerializeField] AnimationClip Walking;
-    [SerializeField] ParticleSystem dust;
+    [SerializeField] AnimationClip dodge;
+    [SerializeField] SpriteRenderer banana;
 
+    [SerializeField] ParticleSystem dust;
     [SerializeField] AudioSource audio;
     float audioCd;
 
-
+    float dodgeDuration;
     
 
     //private bool immune = false;
@@ -51,18 +53,49 @@ public class Player : Monkey
         cursor = transform.GetChild(0);
     }
 
+    private void Update()
+    {
+        if (!pressed)
+        {
+            playerDirection = Move();
+            animator.ResetTrigger("Dodge");
+            animator.SetTrigger("Run");
+        }
+        else
+        {
+            if (dodgeDuration > 0)
+            {
+                animator.ResetTrigger("Run");
+                animator.SetTrigger("Dodge");
+            }
+            if (dodgeDuration <= 0.3)
+            {
+                playerDirection = Vector2.zero;
+            }
+        }
+
+    }
+
     private void FixedUpdate()
     {
         GetComponent<SpriteRenderer>().flipX = (cursor.rotation.y < 0) ? true : false;
+        banana.flipX = (cursor.rotation.y < 0) ? true : false;
 
         audioCd -= Time.deltaTime;
+        dodgeDuration -= Time.deltaTime;
+      //  if (playerDirection != Vector2.zero)
 
-        if (playerDirection != Vector2.zero)
-            animator.Play("Running");
+
         if (playerDirection != Vector2.zero && !stunned)
         {
             CreateDust();
-            
+
+            if (dodgeDuration <= 0)
+            {
+                animator.ResetTrigger("Dodge");
+                animator.SetTrigger("Run");
+            }
+
             if (audioCd < 0)
             {
                 audio.Play();
@@ -71,7 +104,7 @@ public class Player : Monkey
             // Apply force in the specified direction
             monkeyRb.AddForce(playerDirection * speed);
         }
-        else
+        else if (dodgeDuration <= 0)
         {
             animator.Play("Idle");
                 audio.Stop();
@@ -86,6 +119,15 @@ public class Player : Monkey
             Dodge();
         }
     }
+
+    protected override Vector2 Move()
+    {
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+
+        return new Vector2(x, y);
+    }
+
     protected override void OnTakeDamage()
     {
         healthSlider.value = Health;
@@ -94,6 +136,8 @@ public class Player : Monkey
     {
         if (pressed && !isOnCooldown)
         {
+            dodgeDuration = dodge.length;
+            print("YEEt");
             monkeyRb.AddForce(playerDirection * dodgeForce, ForceMode2D.Impulse);
 
             isOnCooldown = true;
@@ -102,15 +146,19 @@ public class Player : Monkey
         }
     }
 
-    public void OnMove(InputAction.CallbackContext ctx)
-    {
-        playerDirection = ctx.ReadValue<Vector2>();
-    }
+    //public void OnMove(InputAction.CallbackContext ctx)
+    //{
+    //    if (!isDodging)
+    //        playerDirection = ctx.ReadValue<Vector2>();
+    //    else playerDirection = Vector2.zero;
+    //}
 
     public void OnDodge(InputAction.CallbackContext ctx)
     {
-        if (ctx.ReadValue<float>() > 0 && playerDirection.magnitude > 0)
+        if (ctx.ReadValue<float>() > 0 && playerDirection.magnitude > 0 && dodgeDuration < 0)
         {
+            animator.StopPlayback();
+            dodgeDuration = dodge.length;
             pressed = true;
         }
     }
