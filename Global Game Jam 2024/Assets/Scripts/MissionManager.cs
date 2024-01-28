@@ -198,6 +198,8 @@ public class MissionManager : MonoBehaviour
 
         MissionUpdateState currentSubMission = currentMission.updateStates[currentMission.updateStateNum];
 
+        currentSubMission.enemiesToCure.Remove(enemy);
+
         if (currentSubMission.updateStates == UpdateCondition.KillEnemies)
             if (currentSubMission.enemiesToCure.Count <= 0)
                 IncreaseMissionUpdateState(currentMissionIndex);
