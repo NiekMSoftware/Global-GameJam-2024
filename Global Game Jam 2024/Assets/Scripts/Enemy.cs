@@ -106,9 +106,11 @@ public class Enemy : Monkey
 
     protected override void OnTakeDamage()
     {
-        healthBar.transform.localScale = new Vector3(((healthBarFullSize.x/maxHealth) * health), healthBarFullSize.y, 1);
-        barPosMover = (1 / maxHealth) * health;
-        Debug.Log(barPosMover);
+        if (!isDead)
+        {
+            healthBar.transform.localScale = new Vector3(((healthBarFullSize.x / maxHealth) * health), healthBarFullSize.y, 1);
+            barPosMover = (1 / maxHealth) * health;
+        }
         
     }
 
@@ -158,14 +160,19 @@ public class Enemy : Monkey
 
     protected override void Die()
     {
-        Destroy(gameObject.transform.parent.GetChild(1).gameObject);
-        Destroy(gameObject.transform.parent.GetChild(2).gameObject);
-        isDead = true;
-        agent.speed = 0;
-        agent.velocity = Vector3.zero;
-        renderer.sprite = deadSprite;
-        missionManager.CuredEnemy(this);
-        room?.RemoveEnemy(this);
-        Debug.Log("Enemy Died");
+        if (!isDead)
+        {
+            Destroy(gameObject.transform.parent.GetChild(1).gameObject);
+            Destroy(gameObject.transform.parent.GetChild(2).gameObject);
+            gameObject.GetComponent<Collider2D>().enabled = false;
+            isDead = true;
+            agent.speed = 0;
+            agent.velocity = Vector3.zero;
+            renderer.sprite = deadSprite;
+            missionManager.CuredEnemy(this);
+            room?.RemoveEnemy(this);
+            animator.SetBool("isDead", true);
+            Debug.Log("Enemy Died");
+        }
     }
 }
