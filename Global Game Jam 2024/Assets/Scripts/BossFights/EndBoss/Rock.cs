@@ -65,7 +65,7 @@ public class Rock : MonoBehaviour
 
                 if (destroyTimer <= 0)
                 {
-                    boss.AttackDone();
+                    boss?.AttackDone();
                     Destroy(gameObject);
                     return;
                 }

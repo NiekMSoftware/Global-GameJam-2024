@@ -5,6 +5,7 @@ public class EndBoss : Enemy
 {
     [SerializeField] private GameObject fireRing;
     [SerializeField] private GameObject rock;
+    [SerializeField] private GameObject followRock;
     [SerializeField] private float coolDownTime;
     [SerializeField] private float squareSize;
     [SerializeField] private Vector3 squareOffset;
@@ -19,7 +20,7 @@ public class EndBoss : Enemy
 
     private float coolDownTimer;
 
-    private float stunTimer;
+    [SerializeField] private float stunTimer;
 
     private Color startingColor;
 
@@ -31,7 +32,8 @@ public class EndBoss : Enemy
     {
         Idle,
         Attacking,
-        Stunned
+        Stunned,
+        Dead
     }
 
     [System.Serializable]
@@ -60,13 +62,22 @@ public class EndBoss : Enemy
 
     private void Update()
     {
+        if (state == States.Dead)
+        {
+            spriteRenderer.color = startingColor;
+            CancelInvoke();
+            animator.SetBool("IsDead", true);
+            return;
+        }
+
         spriteRenderer.color = startingColor;
 
         animator.SetBool("IsAttacking", true);
 
-        print("Going into Stunned state");
         if (state == States.Stunned)
         {
+            animator.SetBool("IsAttacking", false);
+
             print("In stunned state");
 
             CancelInvoke();
@@ -75,17 +86,11 @@ public class EndBoss : Enemy
             spriteRenderer.color = stunColor;
             stunTimer -= Time.deltaTime;
 
-            print("Setting stunColor!");
-
             if (stunTimer <= 0)
             {
                 stunTimer = stunTime;
                 state = States.Idle;
             }
-        }
-        else
-        {
-            Debug.LogError("DHAUHDUAH");
         }
 
         if (state != States.Idle)
@@ -138,6 +143,11 @@ public class EndBoss : Enemy
             case 1:
                 StartCoroutine(Attack(RockAttack, (int)Mathf.Ceil(randomAmount), attackInfo));
                 break;
+
+            case 2:
+                print("AAAAAAAAAAAAAA");
+                StartCoroutine(Attack(TargetRockAttack, (int)Mathf.Ceil(randomAmount), attackInfo));
+                break;
         }   
     }
 
@@ -153,13 +163,14 @@ public class EndBoss : Enemy
 
     public void AttackDone()
     {
-        state = States.Idle;
+        if (state != States.Stunned)
+            state = States.Idle;
     }
 
     private void ThumpAttack()
     {
-        Instantiate(fireRing, transform.position, Quaternion.identity);
-        fireRing.GetComponent<FireRing>().boss = this;
+        FireRing spawnedFireRing = Instantiate(fireRing, transform.position, Quaternion.identity).GetComponent<FireRing>();
+        spawnedFireRing.GetComponent<FireRing>().boss = this;
     }
 
     private void RockAttack()
@@ -169,14 +180,19 @@ public class EndBoss : Enemy
         randomPosition.y += Random.Range(-squareSize / 2, squareSize / 2);
         randomPosition.z = 0;
 
-        Instantiate(rock, randomPosition, Quaternion.identity);
-        rock.GetComponent<Rock>().boss = this;
+        Rock spawnedRock = Instantiate(rock, randomPosition, Quaternion.identity).GetComponent<Rock>();
+        spawnedRock.GetComponent<Rock>().boss = this;
+    }
+
+    private void TargetRockAttack()
+    {
+        Rock spawnedRock = Instantiate(followRock, player.transform.position, Quaternion.identity).GetComponent<Rock>();
+        spawnedRock.GetComponent<Rock>().boss = this;
     }
 
     protected override void Die()
     {
-        Time.timeScale = 0f;
-        print("You defeated the boss!!");
+        state = States.Dead;
     }
 
     public override void TakeDamage(float damage)

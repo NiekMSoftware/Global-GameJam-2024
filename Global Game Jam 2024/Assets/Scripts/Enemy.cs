@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Enemy : Monkey
 {
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Transform player;
+    [SerializeField] protected Transform player;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float stoppingDistance;
     private float startSpeed;
@@ -16,6 +16,8 @@ public class Enemy : Monkey
     [SerializeField] private GameObject barBackground;
     [SerializeField] private Sprite deadSprite;
     [SerializeField] private SpriteRenderer renderer;
+
+    public Room room;
 
     private MissionManager missionManager;
 
@@ -163,6 +165,7 @@ public class Enemy : Monkey
         agent.velocity = Vector3.zero;
         renderer.sprite = deadSprite;
         missionManager.CuredEnemy(this);
+        room?.RemoveEnemy(this);
         Debug.Log("Enemy Died");
     }
 }
