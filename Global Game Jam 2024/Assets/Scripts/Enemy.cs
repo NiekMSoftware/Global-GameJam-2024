@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Enemy : Monkey
 {
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Transform player;
+    [SerializeField] protected Transform player;
     [SerializeField] private Weapon weapon;
     [SerializeField] private float stoppingDistance;
     private float startSpeed;

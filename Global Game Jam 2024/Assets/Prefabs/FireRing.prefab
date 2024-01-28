@@ -341,5 +341,5 @@ MonoBehaviour:
   maxSize: 0.01
   startSize: 0.5
   increaseSpeed: 0.002
-  damage: 25
+  damage: 10
   boss: {fileID: 0}

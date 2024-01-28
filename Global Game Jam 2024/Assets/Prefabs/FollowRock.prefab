@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9046399762344732980}
   - component: {fileID: -2056619826300522361}
   m_Layer: 0
-  m_Name: Rock
+  m_Name: FollowRock
   m_TagString: BossAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 8281944976804841220}
-  teleGraphTime: 3
+  teleGraphTime: 1
   destroyTime: 3
   damage: 5
   boss: {fileID: 0}
